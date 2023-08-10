@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-// import homeIcon from '"C:\Users\mukun\Downloads\icons8-home-29.png"';
-// import searchIcon from './path_to_search_icon.png';
-// import profileIcon from './path_to_profile_icon.png';
-// import postIcon from './path_to_post_icon.png';
+import homeIcon from './homeicon.png';
+import searchIcon from './searchicon.png';
+import postIcon from './posticon.png';
+import profileIcon from './profileicon.png';
+
 const Dashboard = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const jsonData = [
@@ -77,10 +78,10 @@ const Dashboard = () => {
             {/* Mobile Task Bar */}
             {windowWidth <= 768 && (
                 <div style={{ display: 'flex', justifyContent: 'space-around', fontSize: '24px', borderTop: '1px solid #808080', padding: '10px', position: 'fixed', bottom: '0', left: '0', right: '0', backgroundColor: '#ffffff', zIndex: '100' }}>
-                    {/*<img src={homeIcon} alt="Home" style={{ width: '24px', height: '24px' }} />*/}
-                    {/*<img src={searchIcon} alt="Search" style={{ width: '24px', height: '24px' }} />*/}
-                    {/*<img src={profileIcon} alt="Profile" style={{ width: '24px', height: '24px' }} />*/}
-                    {/*<img src={postIcon} alt="Post" style={{ width: '24px', height: '24px' }} />*/}
+                    <img src={homeIcon} style={{ width: '31px', height: '31px' }} />
+                    <img src={searchIcon} style={{ width: '30px', height: '30px' }} />
+                    <img src={postIcon} style={{ width: '31px', height: '31px' }} />
+                    <img src={profileIcon} style={{ width: '31px', height: '31px' }} />
                 </div>
             )}
 
