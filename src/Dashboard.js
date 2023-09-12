@@ -6,7 +6,21 @@ import profileIcon from './profileicon.png';
 
 const Dashboard = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [showStickyNote, setShowStickyNote] = useState(true);
     const jsonData = [
+        {
+            "content": "hello welocome to rvc ",
+            "date_posted": "2023-08-06T15:15:31Z",
+            "author": 3,
+            "mentioned_user": 2
+        },
+        {
+            "content": "Lorem Ipsum...",
+            "date_posted": "2023-08-06T15:15:57Z",
+            "author": 2,
+            "mentioned_user": 3
+        },
+
         {
             "content": "Lorem Ipsum...",
             "date_posted": "2023-08-06T15:15:31Z",
@@ -20,11 +34,41 @@ const Dashboard = () => {
             "mentioned_user": 3
         },
         {
-            "content": "Khada hun aaj bhi wahi...",
-            "date_posted": "2023-08-09T13:12:27Z",
+            "content": "Lorem Ipsum...",
+            "date_posted": "2023-08-06T15:15:31Z",
+            "author": 3,
+            "mentioned_user": 2
+        },
+        {
+            "content": "Lorem Ipsum...",
+            "date_posted": "2023-08-06T15:15:57Z",
             "author": 2,
-            "mentioned_user": null
-        }
+            "mentioned_user": 3
+        },
+        {
+            "content": "Lorem Ipsum...",
+            "date_posted": "2023-08-06T15:15:57Z",
+            "author": 2,
+            "mentioned_user": 3
+        },
+        {
+            "content": "Lorem Ipsum...",
+            "date_posted": "2023-08-06T15:15:57Z",
+            "author": 2,
+            "mentioned_user": 3
+        },
+        {
+            "content": "Lorem Ipsum...",
+            "date_posted": "2023-08-06T15:15:57Z",
+            "author": 2,
+            "mentioned_user": 3
+        },
+        {
+            "content": "Lorem Ipsum...",
+            "date_posted": "2023-08-06T15:15:57Z",
+            "author": 2,
+            "mentioned_user": 3
+        },
     ];
 
     const formatTimeDifference = (postDate) => {
@@ -50,16 +94,33 @@ const Dashboard = () => {
 
         window.addEventListener('resize', handleResize);
 
-        // Clean up event listener on unmount
-        return () => {
-            window.removeEventListener('resize', handleResize);
+
+
+            const handleScroll = () => {
+                setShowStickyNote(window.scrollY <= 0); // Show sticky note when scrolling up
+            };
+
+            window.addEventListener('scroll', handleScroll);
+
+            // Clean up event listener on unmount
+            return () => {
+                window.removeEventListener('resize', handleResize);
+                window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-
-
+        const getStickyNoteColor = (index) => {
+            // Replace this logic with your color generation or predefined colors
+            const colors = ['rgba(252,133,189,0.72)', 'rgba(137,231,255,0.72)','rgba(255,137,137,0.72)', 'rgba(255,241,137,0.72)','rgba(170,137,255,0.72)',  'rgba(136,253,136,0.72)',];
+            return colors[index % colors.length];
+        };
+    const getStickyNoteColor1 = (index) => {
+        // Replace this logic with your color generation or predefined colors
+        const colors = ['#ff76b3', '#76cfff','#FF7676FF','#ffef76','#9b76ff','#76fd76', ];
+        return colors[index % colors.length];
+    };
 
     return (
-        <div>
+        <div style={{ marginBottom: windowWidth <= 768 ? '60px' : '0' }}>
             {/* Top Bar */}
             <div style={{ display: 'flex', alignItems: 'center',justifyContent:'center', padding: '13px', borderBottom: '1px solid #808080' }}>
                 <div>
@@ -69,21 +130,38 @@ const Dashboard = () => {
 
             </div>
             {jsonData.map((post, index) => (
-                <div key={index} style={{ borderBottom: '1px solid #808080', padding: '10px', margin: '10px' ,position: 'relative', maxWidth:'100%'}}>
-                    {post.mentioned_user !== null && <p style={{  fontFamily:'Helvetica',color: '#1da1f2',fontSize:'15px' }}>@{post.mentioned_user}</p>}
-                    <p style={{ position: 'absolute', top: '0', right: '4px' , color: '#808080', fontFamily:'Helvetica' }}>{formatTimeDifference(post.date_posted)}</p>
-                    <p style={{fontFamily:'Helvetica'}}>{post.content}</p>
+                <div key={index} style={{  borderRadius:'11px', borderBottomLeftRadius:'30px', background: getStickyNoteColor(index), position: showStickyNote ? 'sticky' : 'relative', top: showStickyNote ? '0' : 'initial', zIndex: showStickyNote ? '10' : 'auto',border: '1px solid #000', padding: '10px', margin: '10px' , maxWidth:'100%', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
+                    <div
+                        style={{  zIndex: '1', fontFamily: 'Helvetica',position: 'relative',}}>
+                    {post.mentioned_user !== null && <p style={{  fontFamily:'Helvetica',color: '#000',fontSize:'15px',position: 'relative',top: '-15px' }}><b>@{post.mentioned_user}</b></p>}
+                    <p style={{ position: 'absolute', top: '-30px', right: '4px' , color: '#000', fontFamily:'Helvetica' }}>{formatTimeDifference(post.date_posted)}</p>
+                    <p style={{fontFamily:'Helvetica',position: 'relative',left: '27px',top: '-30px'}}>{post.content}</p>
+                </div>
+                    <div
+                        style={{
+
+                            borderBottom:'2px solid #000',
+
+                            borderRight:'1px solid #000',
+                            borderTopRightRadius: '0px',
+                            borderTopLeftRadius: '30px',
+                            borderBottomRightRadius: '11px',
+                            borderBottomLeftRadius: '0px',
+                            position: 'absolute',
+                            bottom: '-0px', // Adjust as needed
+                            left: '27px', // Adjust as needed
+                            width: '30px', // Adjust as needed
+                            height: '30px', // Adjust as needed
+                            background: getStickyNoteColor1(index), // Use the same color as sticky note
+                            clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%, 0% 75%)', // Create fold effect
+                            zIndex: '0',
+                            transform: 'rotate(-81deg)', // Rotate the folded corner
+                            transformOrigin: 'bottom left', // Set the rotation origin
+                        }}
+                    />
                 </div>
             ))}
-            {/* Mobile Task Bar */}
-            {windowWidth <= 768 && (
-                <div style={{ display: 'flex', justifyContent: 'space-around', fontSize: '24px', borderTop: '1px solid #808080', padding: '10px', position: 'fixed', bottom: '0', left: '0', right: '0', backgroundColor: '#ffffff', zIndex: '100' }}>
-                    <img src={homeIcon} style={{ width: '31px', height: '31px' }} />
-                    <img src={searchIcon} style={{ width: '30px', height: '30px' }} />
-                    <img src={postIcon} style={{ width: '31px', height: '31px' }} />
-                    <img src={profileIcon} style={{ width: '31px', height: '31px' }} />
-                </div>
-            )}
+
 
         </div>
     );

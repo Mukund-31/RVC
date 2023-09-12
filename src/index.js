@@ -1,17 +1,134 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import Dashboard from './Dashboard';
-import reportWebVitals from './reportWebVitals';
+import PostPage from './PostPage';
+ import ProfilePage from './ProfilePage';
+// import SearchPage from './SearchPage';
+import homeIcon from './homeicon.png';
+import postIcon from './posticon.png';
+import profileIcon from './profileicon.png';
+// import searchIcon from './searchicon.png';
 
-ReactDOM.render(
-    <React.StrictMode>
-        <Dashboard />
-    </React.StrictMode>,
-    document.getElementById('root')
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+
+const App = () => {
+    const [currentPage, setCurrentPage] = useState('dashboard');
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [activeTab, setActiveTab] = useState('posts');
+
+    const [userData, setUserData] = useState({
+        name: 'User123',
+        profileImage: '.profileicon',
+        branch: 'CSE26',
+        bio: 'A passionate blogger and explorer!',
+
+
+        posts: [
+            { content: 'Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
+            { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
+            { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
+            { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
+            { content: 'Another day, another post.' ,date_posted: "2023-08-06T15:15:57Z",},
+            { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
+            { content: 'Another day, another post.' ,date_posted: "2023-08-06T15:15:57Z",}
+            // ... other posts
+        ],
+
+
+            mentioned: [
+        { content: 'Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
+        { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
+        { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
+        { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
+        { content: 'Another day, another post.' ,date_posted: "2023-08-06T15:15:57Z",},
+        { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
+        { content: 'Another day, another post.' ,date_posted: "2023-08-06T15:15:57Z",}
+
+
+            // ... other posts
+        ],
+
+        friends: [
+            { name: 'Friend1', username:'abc',image: 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png'},
+            { name: 'Friend2',username:'abc',image: 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png' },
+            { name: 'Friend3',username:'abc',image: 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png' },
+            { name: 'Friend1', username:'abc',image: 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png'},
+            { name: 'Friend2',username:'abc',image: 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png' },
+            { name: 'Friend3',username:'abc',image: 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png' },
+            { name: 'Friend1', username:'abc',image: 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png'},
+            { name: 'Friend2',username:'abc',image: 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png' },
+            { name: 'Friend3',username:'abc',image: 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png' },
+            // Add more friends as needed
+        ],
+    });
+
+    const [usersData, setUsersData] = useState([
+        { name: 'User123', image: 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png' },
+        { name: 'JohnDoe', image: 'C:\\Users\\Prakhar Jain\\WebstormProjects\\front-end\\Front-End\\Front-End\\My.jpg' },
+        { name: 'JaneSmith', image: 'C://Users//Prakhar Jain//WebstormProjects//front-end//Front-End//Front-End//My.jpg' },
+        // ... other users
+    ]);
+
+    const switchToPostPage = () => {
+        setCurrentPage('postPage');
+    };
+
+    const switchToDashboard = () => {
+        setCurrentPage('dashboard');
+    };
+
+    const switchToProfilePage = () => {
+        setCurrentPage('profilePage');
+    };
+
+    // const switchToSearchPage = () => {
+    //     setCurrentPage('searchPage');
+    // };
+
+    const handleTabClick = (tab) => {
+        setActiveTab(tab);
+    };
+
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+    return (
+        <div>
+            <nav>
+                {windowWidth <= 768 && (
+                    <div style={{ display: 'flex', justifyContent: 'space-around', fontSize: '33px', borderTop: '1px solid #808080', padding: '13px', position: 'fixed', bottom: '0', left: '0', right: '0', backgroundColor: '#ffffff', zIndex: '100', width: '100%',
+                        boxSizing: 'border-box', }}>
+                        <img src={homeIcon} onClick={switchToDashboard} style={{ width: '31px', height: '31px' }} />
+                        <img src={postIcon} onClick={switchToPostPage} style={{ width: '31px', height: '31px' }} />
+                        <img src={profileIcon} onClick={switchToProfilePage} style={{ width: '31px', height: '31px' }} />
+                    </div>
+                )}
+                {/* Other navigation elements */}
+            </nav>
+            {currentPage === 'dashboard' && <Dashboard switchToPostPage={switchToPostPage} />}
+            {currentPage === 'postPage' && <PostPage switchToDashboard={switchToDashboard} users={usersData} />}
+            {currentPage === 'profilePage' &&<ProfilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} />}
+            {/* Other page components */}
+
+
+            {/*{currentPage === 'profilePage' && activeTab === 'friends' && (*/}
+            {/*    // Render friends content here*/}
+            {/*)}*/}
+            {/*{currentPage === 'profilePage' && activeTab === 'clubs' && (*/}
+            {/*    // Render clubs content here*/}
+            {/*)}*/}
+        </div>
+    );
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));
