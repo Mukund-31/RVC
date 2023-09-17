@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import Dashboard from './Dashboard';
 import ConfessionPage from './ConfessionPage';
  import ProfilePage from './ProfilePage';
-// import SearchPage from './SearchPage';
+import SearchPage from './SearchPage';
 import homeIcon from './homeicon.png';
 import postIcon from './posticon.png';
 import profileIcon from './profileicon.png';
-// import searchIcon from './searchicon.png';
+import searchIcon from './searchicon.png';
 
 
 
@@ -82,9 +82,9 @@ const App = () => {
         setCurrentPage('profilePage');
     };
 
-    // const switchToSearchPage = () => {
-    //     setCurrentPage('searchPage');
-    // };
+    const switchToSearchPage = () => {
+        setCurrentPage('searchPage');
+    };
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);
@@ -109,8 +109,10 @@ const App = () => {
                     <div style={{ display: 'flex', justifyContent: 'space-around', fontSize: '33px', borderTop: '1px solid #808080', padding: '13px', position: 'fixed', bottom: '0', left: '0', right: '0', backgroundColor: '#ffffff', zIndex: '100', width: '100%',
                         boxSizing: 'border-box', }}>
                         <img src={homeIcon} onClick={switchToDashboard} style={{ width: '31px', height: '31px' }} />
+                        <img src={searchIcon} onClick={switchToSearchPage} style={{ width: '31px', height: '31px' }} />
                         <img src={postIcon} onClick={switchToConfessionPage} style={{ width: '31px', height: '31px' }} />
                         <img src={profileIcon} onClick={switchToProfilePage} style={{ width: '31px', height: '31px' }} />
+
                     </div>
                 )}
                 {/* Other navigation elements */}
@@ -118,15 +120,12 @@ const App = () => {
             {currentPage === 'dashboard' && <Dashboard switchToConfessionPage={switchToConfessionPage} />}
             {currentPage === 'confessionPage' && <ConfessionPage switchToDashboard={switchToDashboard} users={usersData} />}
             {currentPage === 'profilePage' &&<ProfilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} />}
+            {currentPage === 'searchPage' && (<SearchPage usersData={usersData} />
+            )}
+
             {/* Other page components */}
 
 
-            {/*{currentPage === 'profilePage' && activeTab === 'friends' && (*/}
-            {/*    // Render friends content here*/}
-            {/*)}*/}
-            {/*{currentPage === 'profilePage' && activeTab === 'clubs' && (*/}
-            {/*    // Render clubs content here*/}
-            {/*)}*/}
         </div>
     );
 };

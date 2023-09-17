@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 
 
-    const ProfilePage = ({user , activeTab, handleTabClick,setUserData}) => {
+    const ProfilePage = ({user ,activeTab='confession', handleTabClick,setUserData}) => {
         const [windowWidth, setWindowWidth] = useState(window.innerWidth);
         const [showStickyNote, setShowStickyNote] = useState(true);
+
         const formatTimeDifference = (confessionDate,mentionDate) => {
             const currentDate = new Date();
             const timeDifference = currentDate - new Date(confessionDate);
