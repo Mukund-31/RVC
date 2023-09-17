@@ -57,9 +57,16 @@ const PostPage = ({ switchToDashboard, users }) => {
     };
 
     const handleMentionClick = (user) => {
-        const mention = `@${user.name}`;
-        const updatedContent = newPostContent.replace(/@(\w+)/g, '').trim() + ' ' + mention + ' ';
-        setNewPostContent(updatedContent);
+        const mention = `@${user.name }`;
+        const lastMentionStart = newPostContent.lastIndexOf('@');
+
+        if (lastMentionStart >= 0) {
+            const preMentionText = newPostContent.substring(0, lastMentionStart);
+            const updatedContent = preMentionText + mention + ' ';
+            setNewPostContent(updatedContent);
+        } else {
+            setNewPostContent(mention + ' ');
+        }
         setMentionedUsers([...mentionedUsers, user]);
         setSuggestedMentionedUsers([]);
     };
@@ -180,20 +187,27 @@ const PostPage = ({ switchToDashboard, users }) => {
                     rows={Math.min(10, newPostContent.split('\n').length + 1)}
                     style={{  resize: 'none', marginLeft: '25px',border: 'none',borderRadius:'11px',outline: 'none', lineHeight:'1.5',width: 'calc(100% - 25px)', fontSize: '20px' , fontFamily:'Helvetica'}}
                 />
+
+            </div>
                 <div>
                     {suggestedMentionedUsers.length > 0 && (
+
                         <ul>
                             {suggestedMentionedUsers.map((user, index) => (
-                                <li key={index} onClick={() => handleMentionClick(user)}>
-                                    <img src={user.image} alt={user.name} style={{ width: '30px', height: '30px'}} />
-                                    {user.name}
+                                <li key={index} style={{ display: 'flex', alignItems: 'center',borderBottom: '1px solid #ccc', padding: '0px 0',position: 'relative',left: '-20px' }} onClick={() => handleMentionClick(user)}>
+                                    <img src={user.image} style={{ width: '40px', height: '40px', borderRadius: '50%', marginRight: '10px' }} />
+                                    <div style={{ flex: '1', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <div>
+                                            <p style={{ fontFamily: 'Helvetica', color: '#000', fontSize: '17px' ,position: 'relative',top:'4px', margin: '10px'}}><b>@{user.username}</b></p>
+                                            <p style={{ fontFamily: 'Helvetica',color: '#8f8f8f',position: 'relative',top:'-2px', fontSize: '17px', margin: '10px' }}>{user.name}</p>
+                                        </div>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
                     )}
                 </div>
                 <button onClick={handlePostSubmit} style={{ position: 'fixed', top: '20px', right: '10px', background: '#000', color: '#fff', border: 'none', borderRadius: '11px', padding: '6px 12px', fontSize: '20px', cursor: 'pointer', fontFamily:'Helvetica' }}><b>Post</b></button>
-            </div>
         </div>
         </div>
     );

@@ -18,7 +18,7 @@ const App = () => {
     const [activeTab, setActiveTab] = useState('posts');
 
     const [userData, setUserData] = useState({
-        name: 'User123',
+        name: 'Friend1',
         profileImage: '.profileicon',
         branch: 'CSE26',
         bio: 'A passionate blogger and explorer!',
@@ -64,9 +64,9 @@ const App = () => {
     });
 
     const [usersData, setUsersData] = useState([
-        { name: 'User123', image: 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png' },
-        { name: 'JohnDoe', image: 'C:\\Users\\Prakhar Jain\\WebstormProjects\\front-end\\Front-End\\Front-End\\My.jpg' },
-        { name: 'JaneSmith', image: 'C://Users//Prakhar Jain//WebstormProjects//front-end//Front-End//Front-End//My.jpg' },
+        { name: 'Friend1',username:'abc',image: 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png' },
+        { name: 'Friend2',username:'abc', image: 'C:\\Users\\Prakhar Jain\\WebstormProjects\\front-end\\Front-End\\Front-End\\My.jpg' },
+        { name: 'Friend3',username:'abc',image: 'C://Users//Prakhar Jain//WebstormProjects//front-end//Front-End//Front-End//My.jpg' },
         // ... other users
     ]);
 
