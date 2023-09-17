@@ -116,6 +116,8 @@ const PostPage = ({ switchToDashboard, users }) => {
         '#9b76ff',
         '#76fd76',
     ];
+
+
     return (
         <div >
             <button onClick={switchToDashboard} style={{ position: 'absolute', top: '20px', left: '10px', background: 'none', border: 'none' }}>
