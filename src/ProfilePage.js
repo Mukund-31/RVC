@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 
 
-    const ProfilePage = ({user ,activeTab='confession', handleTabClick,setUserData}) => {
+    const ProfilePage = ({user ,activeTab='confession', handleTabClick,setUserData,usersData}) => {
         const [windowWidth, setWindowWidth] = useState(window.innerWidth);
         const [showStickyNote, setShowStickyNote] = useState(true);
+        const [searchQuery, setSearchQuery] = useState('');
+        const [filteredFriends, setFilteredFriends] = useState(user.friends);
 
         const formatTimeDifference = (confessionDate,mentionDate) => {
             const currentDate = new Date();
@@ -55,17 +57,40 @@ import React, {useEffect, useState} from 'react';
             // Create a copy of the user data
             const updatedUserData = { ...user };
 
-            // Find the index of the friend in the friends list
-            const friendIndex = updatedUserData.friends.findIndex(
-                (friend) => friend.name === friendName
-            );
+            // Find the index of the friend to unfriend in the user's friends array
+            const friendIndex = updatedUserData.friends.findIndex((friend) => friend.name === friendName);
 
-            // Remove the friend from the list
+            // Find the index of the friend to unfriend in the filteredFriends array
+            const filteredFriendIndex = filteredFriends.findIndex((friend) => friend.name === friendName);
+
+            // Remove the friend from the user's friends array if found
             if (friendIndex !== -1) {
                 updatedUserData.friends.splice(friendIndex, 1);
-                setUserData(updatedUserData);
             }
+
+            // Remove the friend from the filteredFriends array if found
+            if (filteredFriendIndex !== -1) {
+                const updatedFilteredFriends = [...filteredFriends];
+                updatedFilteredFriends.splice(filteredFriendIndex, 1);
+                setFilteredFriends(updatedFilteredFriends);
+            }
+
+            // Update the user data with the modified friends list
+            setUserData(updatedUserData);
         };
+        const handleInputChange = (e) => {
+            const query = e.target.value;
+            setSearchQuery(query);
+            filterFriends(query);
+        };
+
+        const filterFriends = (query) => {
+            const filtered = user.friends.filter((friend) =>
+                friend.name.toLowerCase().includes(query.toLowerCase())
+            );
+            setFilteredFriends(filtered);
+        };
+
 
         return (
             <div style={{ marginBottom: windowWidth <= 768 ? '60px' : '0' }}>
@@ -247,21 +272,34 @@ import React, {useEffect, useState} from 'react';
                         ))}
                     </>
                 )}
+
+
+
                 {activeTab === 'friends' && (
                     <>
-                        {user.friends.map((friend, index) => (
+                    <div >
 
-                                <div key={index} style={{ display: 'flex', alignItems: 'center',borderBottom: '1px solid #ccc', padding: '0px 0' }}>
-                                    <img src={friend.image} style={{ width: '40px', height: '40px', borderRadius: '50%', marginRight: '10px' }} />
-                                    <div style={{ flex: '1', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                        <div>
-                                            <p style={{ fontFamily: 'Helvetica', color: '#000', fontSize: '17px' ,position: 'relative',top:'4px', margin: '10px'}}><b>@{friend.username}</b></p>
-                                            <p style={{ fontFamily: 'Helvetica',color: '#8f8f8f',position: 'relative',top:'-2px', fontSize: '17px', margin: '10px' }}>{friend.name}</p>
-                                        </div>
-                                        <button style={{ fontFamily: 'Helvetica',backgroundColor: 'white' ,padding: '6px 10px',border: '1.2px solid #ccc',borderRadius:'10px', fontSize: '17px'}} onClick={() => handleUnfriend(friend.name)}><b>Unfriend</b></button>
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            value={searchQuery}
+                            onChange={handleInputChange}
+                            style={{paddingLeft:'18px', fontFamily: 'Helvetica', width:'calc(100% - 22px)', height: '40px',background:'#efefef',border:'1px solid #ccc',fontSize:'20px',borderRadius: '11px',}}
+
+                        />
+                        {filteredFriends.map((friend, index) => (
+                            <div key={index} style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #ccc', padding: '0px 0' }}>
+                                <img src={friend.image} style={{ width: '40px', height: '40px', borderRadius: '50%', marginRight: '10px' }} />
+                                <div style={{ flex: '1', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <div>
+                                        <p style={{ fontFamily: 'Helvetica', color: '#000', fontSize: '17px', position: 'relative', top: '4px', margin: '10px' }}><b>@{friend.username}</b></p>
+                                        <p style={{ fontFamily: 'Helvetica', color: '#8f8f8f', position: 'relative', top: '-2px', fontSize: '17px', margin: '10px' }}>{friend.name}</p>
                                     </div>
+                                    <button style={{ fontFamily: 'Helvetica', backgroundColor: 'white', padding: '6px 10px', border: '1.2px solid #ccc', borderRadius: '10px', fontSize: '17px' }} onClick={() => handleUnfriend(friend.name)}><b>Unfriend</b></button>
+                                </div>
                             </div>
                         ))}
+                    </div>
                     </>
                 )}
                 {/*{activeTab === 'clubs' && (*/}
