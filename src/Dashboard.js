@@ -110,7 +110,7 @@ const Dashboard = () => {
     }, []);
         const getStickyNoteColor = (index) => {
             // Replace this logic with your color generation or predefined colors
-            const colors = ['rgba(252,133,189,0.72)', 'rgba(137,231,255,0.72)','rgba(255,137,137,0.72)', 'rgba(255,241,137,0.72)','rgba(170,137,255,0.72)',  'rgba(136,253,136,0.72)',];
+            const colors = ['#FC85BDB7', '#89E7FFB7','#FF8989B7', '#FFF189B7','#AA89FFB7',  '#88FD88B7',];
             return colors[index % colors.length];
         };
     const getStickyNoteColor1 = (index) => {
