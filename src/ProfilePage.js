@@ -4,9 +4,9 @@ import React, {useEffect, useState} from 'react';
     const ProfilePage = ({user , activeTab, handleTabClick,setUserData}) => {
         const [windowWidth, setWindowWidth] = useState(window.innerWidth);
         const [showStickyNote, setShowStickyNote] = useState(true);
-        const formatTimeDifference = (postDate,mentionDate) => {
+        const formatTimeDifference = (confessionDate,mentionDate) => {
             const currentDate = new Date();
-            const timeDifference = currentDate - new Date(postDate);
+            const timeDifference = currentDate - new Date(confessionDate);
 
             if (timeDifference < 60000) { // Less than 1 minute
                 return Math.floor(timeDifference / 1000) + " s";
@@ -79,16 +79,16 @@ import React, {useEffect, useState} from 'react';
 
                 <div style={{ display: 'flex', marginTop: '20px' , justifyContent: 'space-between',width: '100%', }}>
                     <div
-                        className={`tab ${activeTab === 'posts' ? 'active' : ''}`}
-                        onClick={() => handleTabClick('posts')}
+                        className={`tab ${activeTab === 'confessions' ? 'active' : ''}`}
+                        onClick={() => handleTabClick('confessions')}
                         style={{
                             flex: 1,
                             fontFamily: 'Helvetica', fontSize: '20px',
                             textAlign: 'center',
-                            color: activeTab === 'posts' ? '#000' : '#c0c0c0',
+                            color: activeTab === 'confessions' ? '#000' : '#c0c0c0',
                         }}
                     >
-                        <b>Posts</b>
+                        <b>Confessions</b>
                     </div>
                     <div
                         className={`tab ${activeTab === 'mentioned' ? 'active' : ''}`}
@@ -118,11 +118,11 @@ import React, {useEffect, useState} from 'react';
 
                 </div>
                 <hr />
-                {activeTab === 'posts' && (
+                {activeTab === 'confessions' && (
                     <>
 
 
-                            {user.posts.map((post, index) => (
+                            {user.confessions.map((confession, index) => (
                                     <div key={index} style={{
                                         borderRadius: '11px',
                                         borderBottomLeftRadius: '30px',
@@ -138,26 +138,26 @@ import React, {useEffect, useState} from 'react';
                                     }}>
                                         <div
                                             style={{zIndex: '1', fontFamily: 'Helvetica', position: 'relative'}}>
-                                            {post.mentioned_user !== null && <p style={{
+                                            {confession.mentioned_user !== null && <p style={{
                                                 fontFamily: 'Helvetica',
                                                 color: '#000',
                                                 fontSize: '15px',
                                                 position: 'relative',
                                                 top: '-15px'
-                                            }}><b>@{post.mentioned_user}</b></p>}
+                                            }}><b>@{confession.mentioned_user}</b></p>}
                                             <p style={{
                                                 position: 'absolute',
                                                 top: '-30px',
                                                 right: '4px',
                                                 color: '#000',
                                                 fontFamily: 'Helvetica'
-                                            }}>{formatTimeDifference(post.date_posted)}</p>
+                                            }}>{formatTimeDifference(confession.date_posted)}</p>
                                             <p style={{
                                                 fontFamily: 'Helvetica',
                                                 position: 'relative',
                                                 left: '27px',
                                                 top: '-30px'
-                                            }}>{post.content}</p>
+                                            }}>{confession.content}</p>
                                         </div>
                                         <div
                                             style={{

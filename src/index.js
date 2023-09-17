@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import Dashboard from './Dashboard';
-import PostPage from './PostPage';
+import ConfessionPage from './ConfessionPage';
  import ProfilePage from './ProfilePage';
 // import SearchPage from './SearchPage';
 import homeIcon from './homeicon.png';
@@ -15,7 +15,7 @@ import profileIcon from './profileicon.png';
 const App = () => {
     const [currentPage, setCurrentPage] = useState('dashboard');
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const [activeTab, setActiveTab] = useState('posts');
+    const [activeTab, setActiveTab] = useState('confession');
 
     const [userData, setUserData] = useState({
         name: 'Friend1',
@@ -24,7 +24,7 @@ const App = () => {
         bio: 'A passionate blogger and explorer!',
 
 
-        posts: [
+        confessions: [
             { content: 'Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
             { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
             { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
@@ -70,8 +70,8 @@ const App = () => {
         // ... other users
     ]);
 
-    const switchToPostPage = () => {
-        setCurrentPage('postPage');
+    const switchToConfessionPage = () => {
+        setCurrentPage('confessionPage');
     };
 
     const switchToDashboard = () => {
@@ -109,14 +109,14 @@ const App = () => {
                     <div style={{ display: 'flex', justifyContent: 'space-around', fontSize: '33px', borderTop: '1px solid #808080', padding: '13px', position: 'fixed', bottom: '0', left: '0', right: '0', backgroundColor: '#ffffff', zIndex: '100', width: '100%',
                         boxSizing: 'border-box', }}>
                         <img src={homeIcon} onClick={switchToDashboard} style={{ width: '31px', height: '31px' }} />
-                        <img src={postIcon} onClick={switchToPostPage} style={{ width: '31px', height: '31px' }} />
+                        <img src={postIcon} onClick={switchToConfessionPage} style={{ width: '31px', height: '31px' }} />
                         <img src={profileIcon} onClick={switchToProfilePage} style={{ width: '31px', height: '31px' }} />
                     </div>
                 )}
                 {/* Other navigation elements */}
             </nav>
-            {currentPage === 'dashboard' && <Dashboard switchToPostPage={switchToPostPage} />}
-            {currentPage === 'postPage' && <PostPage switchToDashboard={switchToDashboard} users={usersData} />}
+            {currentPage === 'dashboard' && <Dashboard switchToConfessionPage={switchToConfessionPage} />}
+            {currentPage === 'confessionPage' && <ConfessionPage switchToDashboard={switchToDashboard} users={usersData} />}
             {currentPage === 'profilePage' &&<ProfilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} />}
             {/* Other page components */}
 

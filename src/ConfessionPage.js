@@ -1,37 +1,37 @@
 import React, { useState,useEffect } from 'react';
 import CrossIcon from './cross.png';
-const PostPage = ({ switchToDashboard, users }) => {
-    const [newPostContent, setNewPostContent] = useState('');
-    const [posts, setPosts] = useState([]);
+const ConfessionPage = ({ switchToDashboard, users }) => {
+    const [newConfessionContent, setNewConfessionContent] = useState('');
+    const [confessions, setConfessions] = useState([]);
     const [mentionedUsers, setMentionedUsers] = useState([]);
     const [suggestedMentionedUsers, setSuggestedMentionedUsers] = useState([]);
     const [selectedStickyNoteColorIndex, setSelectedStickyNoteColorIndex] = useState(0);
 
 
     const [showStickyNote, setShowStickyNote] = useState(true);
-    const handlePostSubmit = () => {
-        if (newPostContent.trim() === '') {
+    const handleConfessionSubmit = () => {
+        if (newConfessionContent.trim() === '') {
             return;
         }
 
-        const newPost = {
-            content: newPostContent,
+        const newConfession = {
+            content: newConfessionContent,
             date_posted: new Date().toISOString(),
             author: 'User123', // Replace with actual user info
             mentioned_users: mentionedUsers.map(user => user.name),
             stickyNoteColor: selectedStickyNoteColorIndex,
         };
 
-        setPosts([...posts, newPost]);
-        setNewPostContent('');
+        setConfessions([...confessions, newConfession]);
+        setNewConfessionContent('');
         setMentionedUsers([]);
         switchToDashboard();
-        // Switch to Dashboard after making a post
+        // Switch to Dashboard after making a confession
     };
 
     const handleInputChange = (event) => {
         const inputText = event.target.value;
-        setNewPostContent(inputText);
+        setNewConfessionContent(inputText);
 
         if (inputText.length >= 3 && inputText.includes('@')) {
             const lastMentionStart = inputText.lastIndexOf('@');
@@ -58,14 +58,14 @@ const PostPage = ({ switchToDashboard, users }) => {
 
     const handleMentionClick = (user) => {
         const mention = `@${user.name }`;
-        const lastMentionStart = newPostContent.lastIndexOf('@');
+        const lastMentionStart = newConfessionContent.lastIndexOf('@');
 
         if (lastMentionStart >= 0) {
-            const preMentionText = newPostContent.substring(0, lastMentionStart);
+            const preMentionText = newConfessionContent.substring(0, lastMentionStart);
             const updatedContent = preMentionText + mention + ' ';
-            setNewPostContent(updatedContent);
+            setNewConfessionContent(updatedContent);
         } else {
-            setNewPostContent(mention + ' ');
+            setNewConfessionContent(mention + ' ');
         }
         setMentionedUsers([...mentionedUsers, user]);
         setSuggestedMentionedUsers([]);
@@ -183,10 +183,10 @@ const PostPage = ({ switchToDashboard, users }) => {
                     />
                 <textarea
                     placeholder =" @mention
-                     Write your post here..."
-                    value={newPostContent}
+                     Write your confession here..."
+                    value={newConfessionContent}
                     onChange={handleInputChange}
-                    rows={Math.min(10, newPostContent.split('\n').length + 1)}
+                    rows={Math.min(10, newConfessionContent.split('\n').length + 1)}
                     style={{  resize: 'none', marginLeft: '25px',border: 'none',borderRadius:'11px',outline: 'none', lineHeight:'1.5',width: 'calc(100% - 25px)', fontSize: '20px' , fontFamily:'Helvetica'}}
                 />
 
@@ -209,10 +209,10 @@ const PostPage = ({ switchToDashboard, users }) => {
                         </ul>
                     )}
                 </div>
-                <button onClick={handlePostSubmit} style={{ position: 'fixed', top: '20px', right: '10px', background: '#000', color: '#fff', border: 'none', borderRadius: '11px', padding: '6px 12px', fontSize: '20px', cursor: 'pointer', fontFamily:'Helvetica' }}><b>Post</b></button>
+                <button onClick={handleConfessionSubmit} style={{ position: 'fixed', top: '20px', right: '10px', background: '#000', color: '#fff', border: 'none', borderRadius: '11px', padding: '6px 12px', fontSize: '20px', cursor: 'pointer', fontFamily:'Helvetica' }}><b>Confess!</b></button>
         </div>
         </div>
     );
 };
 
-export default PostPage;
+export default ConfessionPage;

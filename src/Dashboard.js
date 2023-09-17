@@ -71,9 +71,9 @@ const Dashboard = () => {
         },
     ];
 
-    const formatTimeDifference = (postDate) => {
+    const formatTimeDifference = (confessionDate) => {
         const currentDate = new Date();
-        const timeDifference = currentDate - new Date(postDate);
+        const timeDifference = currentDate - new Date(confessionDate);
 
         if (timeDifference < 60000) { // Less than 1 minute
             return Math.floor(timeDifference / 1000) + " s";
@@ -129,13 +129,13 @@ const Dashboard = () => {
                 </div>
 
             </div>
-            {jsonData.map((post, index) => (
+            {jsonData.map((confession, index) => (
                 <div key={index} style={{  borderRadius:'11px', borderBottomLeftRadius:'30px', background: getStickyNoteColor(index), position: showStickyNote ? 'sticky' : 'relative', top: showStickyNote ? '0' : 'initial', zIndex: showStickyNote ? '10' : 'auto',border: '1px solid #000', padding: '10px', margin: '10px' , maxWidth:'100%', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
                     <div
                         style={{  zIndex: '1', fontFamily: 'Helvetica',position: 'relative',}}>
-                    {post.mentioned_user !== null && <p style={{  fontFamily:'Helvetica',color: '#000',fontSize:'15px',position: 'relative',top: '-15px' }}><b>@{post.mentioned_user}</b></p>}
-                    <p style={{ position: 'absolute', top: '-30px', right: '4px' , color: '#000', fontFamily:'Helvetica' }}>{formatTimeDifference(post.date_posted)}</p>
-                    <p style={{fontFamily:'Helvetica',position: 'relative',left: '27px',top: '-30px'}}>{post.content}</p>
+                    {confession.mentioned_user !== null && <p style={{  fontFamily:'Helvetica',color: '#000',fontSize:'15px',position: 'relative',top: '-15px' }}><b>@{confession.mentioned_user}</b></p>}
+                    <p style={{ position: 'absolute', top: '-30px', right: '4px' , color: '#000', fontFamily:'Helvetica' }}>{formatTimeDifference(confession.date_posted)}</p>
+                    <p style={{fontFamily:'Helvetica',position: 'relative',left: '27px',top: '-30px'}}>{confession.content}</p>
                 </div>
                     <div
                         style={{
