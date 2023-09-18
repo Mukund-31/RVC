@@ -29,15 +29,17 @@ const ConfessionPage = ({ switchToDashboard, users }) => {
         // Switch to Dashboard after making a confession
     };
 
+
+
     const handleInputChange = (event) => {
         const inputText = event.target.value;
         setNewConfessionContent(inputText);
 
-        if (inputText.length >= 3 && inputText.includes('@')) {
+        if (inputText.length >= 1 && inputText.includes('@')) {
             const lastMentionStart = inputText.lastIndexOf('@');
             const mentionInput = inputText.substring(lastMentionStart + 1);
 
-            if (mentionInput.length >= 3) {
+            if (mentionInput.length >= 1) {
                 const suggestions = users.filter(user =>
                     user.name.toLowerCase().startsWith(mentionInput.toLowerCase())
                 );
@@ -57,7 +59,7 @@ const ConfessionPage = ({ switchToDashboard, users }) => {
     };
 
     const handleMentionClick = (user) => {
-        const mention = `@${user.name }`;
+        const mention = `@${user.username }`;
         const lastMentionStart = newConfessionContent.lastIndexOf('@');
 
         if (lastMentionStart >= 0) {
