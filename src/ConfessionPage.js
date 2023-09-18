@@ -181,13 +181,25 @@ const ConfessionPage = ({ switchToDashboard, users }) => {
                             transformOrigin: 'bottom left', // Set the rotation origin
                         }}
                     />
+                    <div
+                        style={{
+                            position: 'absolute',
+                            top: '0',
+                            left: '0',
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: getStickyNoteColor(),
+                            opacity: '1%', // Adjust the opacity as needed
+                            zIndex: '-1', // Place it behind the textarea
+                            borderRadius: '11px',
+                        }} />
                 <textarea
                     placeholder =" @mention
                      Write your confession here..."
                     value={newConfessionContent}
                     onChange={handleInputChange}
                     rows={Math.min(10, newConfessionContent.split('\n').length + 1)}
-                    style={{  resize: 'none', marginLeft: '25px',border: 'none',borderRadius:'11px',outline: 'none', lineHeight:'1.5',width: 'calc(100% - 25px)', fontSize: '20px' , fontFamily:'Helvetica'}}
+                    style={{  position: 'relative', zIndex: '1',backgroundColor: 'transparent',resize: 'none', marginLeft: '25px',border: 'none',borderRadius:'11px',outline: 'none', lineHeight:'1.5',width: 'calc(100% - 25px)', fontSize: '20px' , fontFamily:'Helvetica'}}
                 />
 
             </div>
