@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-
+import homeIcon from './homeicon.png';
 
     const ProfilePage = ({user ,activeTab='mentioned', handleTabClick,setUserData,usersData}) => {
         const [windowWidth, setWindowWidth] = useState(window.innerWidth);
         const [showStickyNote, setShowStickyNote] = useState(true);
         const [searchQuery, setSearchQuery] = useState('');
         const [filteredFriends, setFilteredFriends] = useState(user.friends);
-
+        const [showDropdown, setShowDropdown] = useState(false);
         const formatTimeDifference = (confessionDate,mentionDate) => {
             const currentDate = new Date();
             const timeDifference = currentDate - new Date(confessionDate);
@@ -90,18 +90,38 @@ import React, {useEffect, useState} from 'react';
             );
             setFilteredFriends(filtered);
         };
+        const handleSettingsClick = () => {
+            // Toggle the dropdown menu
+            setShowDropdown(!showDropdown);
+        };
 
+        const handleLogout = () => {
+            // Implement your logout logic here
+            // For example, clear user session, redirect, etc.
+            console.log('Logout clicked');
+        };
 
         return (
-            <div style={{ marginBottom: windowWidth <= 768 ? '60px' : '0' }}>
-                <p style={{fontFamily: 'Helvetica', fontSize: '30px'}}><b>{user.name}</b> </p>
-                <div>
-                    <img src={user.profileImage} style={{width: '70px', height: '70px', borderRadius: '50%', position:'absolute', top: '20px', right: '14px'}}/>
-                   <br/>
-                    <p style={{fontFamily: 'Helvetica',position:'absolute', top: '60px'}}>{user.branch}</p>
-                    <p style={{fontFamily: 'Helvetica',position:'absolute', top: '80px'}}>{user.bio}</p>
-                </div>
 
+            <div style={{ marginBottom: windowWidth <= 768 ? '60px' : '0' }}>
+                <img src={homeIcon} alt="Settings" style={{ position: 'absolute', top: '10px', right: '10px', cursor: 'pointer',width: '30px', height: '30px' }} onClick={handleSettingsClick} /><br/>
+                <p style={{fontFamily: 'Helvetica', fontSize: '30px'}}><b>{user.name}</b> </p>
+                <div style={{ position: 'relative' }}>
+                    <img src={user.profileImage} style={{width: '70px', height: '70px', borderRadius: '50%', position:'absolute', top: '-60px', right: '14px'}}/>
+                   <br/>
+                    <p style={{fontFamily: 'Helvetica',position:'absolute', top: '-35px'}}>{user.branch}</p>
+                    <p style={{fontFamily: 'Helvetica',position:'absolute', top: '-10px'}}>{user.bio}</p>
+                </div>
+                {showDropdown && (
+                    <div style={{ position: 'relative' }}>
+                        <div style={{ position: 'absolute', top: '0', right: '0', width: '200px', backgroundColor: 'white', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', zIndex: '100' }}>
+                            <ul style={{ listStyle: 'none', padding: '0' }}>
+                                <li style={{ padding: '10px', cursor: 'pointer' }} onClick={handleLogout}>Logout</li>
+                                {/* Add other options here */}
+                            </ul>
+                        </div>
+                    </div>
+                )}
 
                 <div style={{ display: 'flex', marginTop: '20px' , justifyContent: 'space-between',width: '100%', }}>
 

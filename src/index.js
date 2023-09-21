@@ -4,6 +4,7 @@ import Dashboard from './Dashboard';
 import ConfessionPage from './ConfessionPage';
  import ProfilePage from './ProfilePage';
 import SearchPage from './SearchPage';
+import LoginPage from './LoginPage';
 import homeIcon from './homeicon.png';
 import postIcon from './posticon.png';
 import profileIcon from './profileicon.png';
@@ -13,6 +14,7 @@ import searchIcon from './searchicon.png';
 
 
 const App = () => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [currentPage, setCurrentPage] = useState('dashboard');
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [activeTab, setActiveTab] = useState('mentioned');
@@ -100,6 +102,10 @@ const App = () => {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
+        const token = localStorage.getItem('token');
+        if (token) {
+            setIsAuthenticated(true);
+        }
     }, []);
     return (
         <div>
@@ -116,15 +122,18 @@ const App = () => {
                 )}
                 {/* Other navigation elements */}
             </nav>
+            {isAuthenticated ? (
+            <>
             {currentPage === 'dashboard' && <Dashboard user={userData} switchToConfessionPage={switchToConfessionPage} />}
             {currentPage === 'confessionPage' && <ConfessionPage switchToDashboard={switchToDashboard} users={usersData} />}
             {currentPage === 'profilePage' &&<ProfilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} />}
-            {currentPage === 'searchPage' && (<SearchPage usersData={usersData} />
+            {currentPage === 'searchPage' && (<SearchPage usersData={usersData} />)}
+
+            </>
+            ) : (
+                // Render the login form when the user is not authenticated
+                <LoginPage setIsAuthenticated={setIsAuthenticated} />
             )}
-
-            {/* Other page components */}
-
-
         </div>
     );
 };
