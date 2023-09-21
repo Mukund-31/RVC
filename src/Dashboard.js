@@ -98,7 +98,10 @@ const Dashboard = ({ user }) => {
                             left: '27px',
                             top: '-10px'
                         }}>
-                            {confession.content.replace (/@(\w+)/g, (match,mentioned_user) => `@${mentioned_user}`)}
+                            <span dangerouslySetInnerHTML={{ __html: confession.content.replace(
+                                    /@(\w+)/g, // Regular expression to find mentioned users
+                                    (match, username) => `<b>@${username}</b>`
+                                ) }} />
                         </p>
                     </div>
                     <div style={{

@@ -25,8 +25,8 @@ const App = () => {
 
 
         confessions: [
-            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
+            {mentioned_user:'', content: '@abc Hello, @rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
+            {mentioned_user:'', content: '@abc Hello, @rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
             {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
             {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
             {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
