@@ -4,72 +4,10 @@ import searchIcon from './searchicon.png';
 import postIcon from './posticon.png';
 import profileIcon from './profileicon.png';
 
-const Dashboard = () => {
+const Dashboard = ({ user }) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showStickyNote, setShowStickyNote] = useState(true);
-    const jsonData = [
-        {
-            "content": "hello welocome to rvc ",
-            "date_posted": "2023-08-06T15:15:31Z",
-            "author": 3,
-            "mentioned_user": 2
-        },
-        {
-            "content": "Lorem Ipsum...",
-            "date_posted": "2023-08-06T15:15:57Z",
-            "author": 2,
-            "mentioned_user": 3
-        },
 
-        {
-            "content": "Lorem Ipsum...",
-            "date_posted": "2023-08-06T15:15:31Z",
-            "author": 3,
-            "mentioned_user": 2
-        },
-        {
-            "content": "Lorem Ipsum...",
-            "date_posted": "2023-08-06T15:15:57Z",
-            "author": 2,
-            "mentioned_user": 3
-        },
-        {
-            "content": "Lorem Ipsum...",
-            "date_posted": "2023-08-06T15:15:31Z",
-            "author": 3,
-            "mentioned_user": 2
-        },
-        {
-            "content": "Lorem Ipsum...",
-            "date_posted": "2023-08-06T15:15:57Z",
-            "author": 2,
-            "mentioned_user": 3
-        },
-        {
-            "content": "Lorem Ipsum...",
-            "date_posted": "2023-08-06T15:15:57Z",
-            "author": 2,
-            "mentioned_user": 3
-        },
-        {
-            "content": "Lorem Ipsum...",
-            "date_posted": "2023-08-06T15:15:57Z",
-            "author": 2,
-            "mentioned_user": 3
-        },
-        {
-            "content": "Lorem Ipsum...",
-            "date_posted": "2023-08-06T15:15:57Z",
-            "author": 2,
-            "mentioned_user": 3
-        },
-        {
-            "content": "Lorem Ipsum...",
-            "date_posted": "2023-08-06T15:15:57Z",
-            "author": 2,
-            "mentioned_user": 3
-        },
-    ];
 
     const formatTimeDifference = (confessionDate) => {
         const currentDate = new Date();
@@ -129,42 +67,62 @@ const Dashboard = () => {
                 </div>
 
             </div>
-            {jsonData.map((confession, index) => (
-                <div key={index} style={{  borderRadius:'11px', borderBottomLeftRadius:'30px', background: getStickyNoteColor(index), position: showStickyNote ? 'sticky' : 'relative', top: showStickyNote ? '0' : 'initial', zIndex: showStickyNote ? '10' : 'auto',border: '1px solid #000', padding: '10px', margin: '10px' , maxWidth:'100%', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
-                    <div
-                        style={{  zIndex: '1', fontFamily: 'Helvetica',position: 'relative',}}>
-                    {confession.mentioned_user !== null && <p style={{  fontFamily:'Helvetica',color: '#000',fontSize:'15px',position: 'relative',top: '-15px' }}><b>@{confession.mentioned_user}</b></p>}
-                    <p style={{ position: 'absolute', top: '-30px', right: '4px' , color: '#000', fontFamily:'Helvetica' }}>{formatTimeDifference(confession.date_posted)}</p>
-                    <p style={{fontFamily:'Helvetica',position: 'relative',left: '27px',top: '-30px'}}>{confession.content}</p>
-                </div>
-                    <div
-                        style={{
+            {user.confessions.map((confession, index) => (
 
-                            borderBottom:'2px solid #000',
+                <div key={index} style={{
+                    borderRadius: '11px',
+                    borderBottomLeftRadius: '30px',
+                    background: getStickyNoteColor(index),
+                    position: 'relative',
+                    top: '0',
+                    zIndex: 'auto',
+                    border: '1px solid #000',
+                    padding: '10px',
+                    margin: '10px',
+                    maxWidth: '100%',
+                    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
+                }}>
+                    <div style={{ zIndex: '1', fontFamily: 'Helvetica', position: 'relative' }}>
 
-                            borderRight:'1px solid #000',
-                            borderTopRightRadius: '0px',
-                            borderTopLeftRadius: '30px',
-                            borderBottomRightRadius: '11px',
-                            borderBottomLeftRadius: '0px',
+                        <p style={{
                             position: 'absolute',
-                            bottom: '-0px', // Adjust as needed
-                            left: '27px', // Adjust as needed
-                            width: '30px', // Adjust as needed
-                            height: '30px', // Adjust as needed
-                            background: getStickyNoteColor1(index), // Use the same color as sticky note
-                            clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%, 0% 75%)', // Create fold effect
-                            zIndex: '0',
-                            transform: 'rotate(-81deg)', // Rotate the folded corner
-                            transformOrigin: 'bottom left', // Set the rotation origin
-                        }}
+                            top: '-30px',
+                            right: '4px',
+                            color: '#000',
+                            fontFamily: 'Helvetica'
+                        }}>{formatTimeDifference(confession.date_posted)}</p>
+
+                        <p style={{
+                            fontFamily: 'Helvetica',
+                            position: 'relative',
+                            left: '27px',
+                            top: '-10px'
+                        }}>
+                            {confession.content.replace (/@(\w+)/g, (match,mentioned_user) => `@${mentioned_user}`)}
+                        </p>
+                    </div>
+                    <div style={{
+                        borderBottom: '2px solid #000',
+                        borderRight: '1px solid #000',
+                        borderTopRightRadius: '0px',
+                        borderTopLeftRadius: '30px',
+                        borderBottomRightRadius: '11px',
+                        borderBottomLeftRadius: '0px',
+                        position: 'absolute',
+                        bottom: '-0px',
+                        left: '27px',
+                        width: '30px',
+                        height: '30px',
+                        background: getStickyNoteColor1(index),
+                        clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%, 0% 75%)',
+                        zIndex: '0',
+                        transform: 'rotate(-81deg)',
+                        transformOrigin: 'bottom left',
+                    }}
                     />
                 </div>
             ))}
-
-
         </div>
     );
 };
-
 export default Dashboard;

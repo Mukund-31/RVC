@@ -15,7 +15,7 @@ import searchIcon from './searchicon.png';
 const App = () => {
     const [currentPage, setCurrentPage] = useState('dashboard');
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const [activeTab, setActiveTab] = useState('confession');
+    const [activeTab, setActiveTab] = useState('mentioned');
 
     const [userData, setUserData] = useState({
         name: 'Friend1',
@@ -25,13 +25,12 @@ const App = () => {
 
 
         confessions: [
-            { content: 'Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
-            { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
-            { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
-            { content: 'Another day, another post.' ,date_posted: "2023-08-06T15:15:57Z",},
-            { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
-            { content: 'Another day, another post.' ,date_posted: "2023-08-06T15:15:57Z",}
+            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
+            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
+            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
+            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
+            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
+            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
             // ... other posts
         ],
 
@@ -117,7 +116,7 @@ const App = () => {
                 )}
                 {/* Other navigation elements */}
             </nav>
-            {currentPage === 'dashboard' && <Dashboard switchToConfessionPage={switchToConfessionPage} />}
+            {currentPage === 'dashboard' && <Dashboard user={userData} switchToConfessionPage={switchToConfessionPage} />}
             {currentPage === 'confessionPage' && <ConfessionPage switchToDashboard={switchToDashboard} users={usersData} />}
             {currentPage === 'profilePage' &&<ProfilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} />}
             {currentPage === 'searchPage' && (<SearchPage usersData={usersData} />

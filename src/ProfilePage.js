@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 
-    const ProfilePage = ({user ,activeTab='confession', handleTabClick,setUserData,usersData}) => {
+    const ProfilePage = ({user ,activeTab='mentioned', handleTabClick,setUserData,usersData}) => {
         const [windowWidth, setWindowWidth] = useState(window.innerWidth);
         const [showStickyNote, setShowStickyNote] = useState(true);
         const [searchQuery, setSearchQuery] = useState('');
@@ -104,18 +104,8 @@ import React, {useEffect, useState} from 'react';
 
 
                 <div style={{ display: 'flex', marginTop: '20px' , justifyContent: 'space-between',width: '100%', }}>
-                    <div
-                        className={`tab ${activeTab === 'confessions' ? 'active' : ''}`}
-                        onClick={() => handleTabClick('confessions')}
-                        style={{
-                            flex: 1,
-                            fontFamily: 'Helvetica', fontSize: '20px',
-                            textAlign: 'center',
-                            color: activeTab === 'confessions' ? '#000' : '#c0c0c0',
-                        }}
-                    >
-                        <b>Confessions</b>
-                    </div>
+
+
                     <div
                         className={`tab ${activeTab === 'mentioned' ? 'active' : ''}`}
                         onClick={() => handleTabClick('mentioned')}
@@ -144,71 +134,7 @@ import React, {useEffect, useState} from 'react';
 
                 </div>
                 <hr />
-                {activeTab === 'confessions' && (
-                    <>
 
-
-                            {user.confessions.map((confession, index) => (
-                                    <div key={index} style={{
-                                        borderRadius: '11px',
-                                        borderBottomLeftRadius: '30px',
-                                        background: getStickyNoteColor(index),
-                                        position: 'relative',
-                                        top: '0',
-                                        zIndex: 'auto',
-                                        border: '1px solid #000',
-                                        padding: '10px',
-                                        margin: '10px',
-                                        maxWidth: '100%',
-                                        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
-                                    }}>
-                                        <div
-                                            style={{zIndex: '1', fontFamily: 'Helvetica', position: 'relative'}}>
-                                            {confession.mentioned_user !== null && <p style={{
-                                                fontFamily: 'Helvetica',
-                                                color: '#000',
-                                                fontSize: '15px',
-                                                position: 'relative',
-                                                top: '-15px'
-                                            }}><b>@{confession.mentioned_user}</b></p>}
-                                            <p style={{
-                                                position: 'absolute',
-                                                top: '-30px',
-                                                right: '4px',
-                                                color: '#000',
-                                                fontFamily: 'Helvetica'
-                                            }}>{formatTimeDifference(confession.date_posted)}</p>
-                                            <p style={{
-                                                fontFamily: 'Helvetica',
-                                                position: 'relative',
-                                                left: '27px',
-                                                top: '-30px'
-                                            }}>{confession.content}</p>
-                                        </div>
-                                        <div
-                                            style={{
-                                                borderBottom: '2px solid #000',
-                                                borderRight: '1px solid #000',
-                                                borderTopRightRadius: '0px',
-                                                borderTopLeftRadius: '30px',
-                                                borderBottomRightRadius: '11px',
-                                                borderBottomLeftRadius: '0px',
-                                                position: 'absolute',
-                                                bottom: '-0px',
-                                                left: '27px',
-                                                width: '30px',
-                                                height: '30px',
-                                                background: getStickyNoteColor1(index),
-                                                clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%, 0% 75%)',
-                                                zIndex: '0',
-                                                transform: 'rotate(-81deg)',
-                                                transformOrigin: 'bottom left',
-                                            }}
-                                        />
-                                    </div>
-                                ))}
-                    </>
-                )}
                 {activeTab === 'mentioned' && (
                     <>
                         {user.mentioned.map((mention, index) => (
