@@ -63,7 +63,7 @@ function LoginPage({ setIsAuthenticated }) {
     return (
 
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center', height: '70vh' }}>
-            <img src={homeIcon} alt="Your Image" style={{ width: '100px', marginBottom: '200px',marginTop: '200px' }} />
+            <img src={homeIcon} alt=",.Your Image" style={{ width: '100px', marginBottom: '200px',marginTop: '200px' }} />
             <form  onSubmit={handleSubmit} style={{width:'calc(100% - 25px)', textAlign: 'center'}}>
                 <div>
                     <input

@@ -18,6 +18,11 @@ const App = () => {
     const [currentPage, setCurrentPage] = useState('dashboard');
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [activeTab, setActiveTab] = useState('mentioned');
+    const handleLogout = () => {
+        // Implement your logout logic here, e.g., clearing user session
+        localStorage.removeItem('token');
+        setIsAuthenticated(false);
+    };
 
     const [userData, setUserData] = useState({
         name: 'Friend1',
@@ -110,8 +115,8 @@ const App = () => {
     return (
         <div>
             <nav>
-                {windowWidth <= 768 && (
-                    <div style={{ display: 'flex', justifyContent: 'space-around', fontSize: '33px', borderTop: '1px solid #808080', padding: '13px', position: 'fixed', bottom: '0', left: '0', right: '0', backgroundColor: '#ffffff', zIndex: '100', width: '100%',
+                {isAuthenticated && windowWidth <= 768 && (
+                    <div style={{ display: 'flex', justifyContent: 'space-around', fontSize: '33px', borderTop: '1px solid #808080', marginBottom:'-1px', padding: '13px', position: 'fixed', bottom: '0', left: '0', right: '0', backgroundColor: '#ffffff', zIndex: '100', width: '100%',
                         boxSizing: 'border-box', }}>
                         <img src={homeIcon} onClick={switchToDashboard} style={{ width: '31px', height: '31px' }} />
                         <img src={searchIcon} onClick={switchToSearchPage} style={{ width: '31px', height: '31px' }} />

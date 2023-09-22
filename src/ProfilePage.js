@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import homeIcon from './homeicon.png';
+import menuIcon from './menuicon.png';
 
     const ProfilePage = ({user ,activeTab='mentioned', handleTabClick,setUserData,usersData}) => {
         const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -7,6 +7,7 @@ import homeIcon from './homeicon.png';
         const [searchQuery, setSearchQuery] = useState('');
         const [filteredFriends, setFilteredFriends] = useState(user.friends);
         const [showDropdown, setShowDropdown] = useState(false);
+
         const formatTimeDifference = (confessionDate,mentionDate) => {
             const currentDate = new Date();
             const timeDifference = currentDate - new Date(confessionDate);
@@ -104,7 +105,7 @@ import homeIcon from './homeicon.png';
         return (
 
             <div style={{ marginBottom: windowWidth <= 768 ? '60px' : '0' }}>
-                <img src={homeIcon} alt="Settings" style={{ position: 'absolute', top: '10px', right: '10px', cursor: 'pointer',width: '30px', height: '30px' }} onClick={handleSettingsClick} /><br/>
+                <img src={menuIcon} alt="Settings" style={{ position: 'absolute', top: '10px', right: '10px', cursor: 'pointer',width: '30px', height: '30px' }} onClick={handleSettingsClick} /><br/>
                 <p style={{fontFamily: 'Helvetica', fontSize: '30px'}}><b>{user.name}</b> </p>
                 <div style={{ position: 'relative' }}>
                     <img src={user.profileImage} style={{width: '70px', height: '70px', borderRadius: '50%', position:'absolute', top: '-60px', right: '14px'}}/>
@@ -113,13 +114,11 @@ import homeIcon from './homeicon.png';
                     <p style={{fontFamily: 'Helvetica',position:'absolute', top: '-10px'}}>{user.bio}</p>
                 </div>
                 {showDropdown && (
-                    <div style={{ position: 'relative' }}>
-                        <div style={{ position: 'absolute', top: '0', right: '0', width: '200px', backgroundColor: 'white', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', zIndex: '100' }}>
-                            <ul style={{ listStyle: 'none', padding: '0' }}>
-                                <li style={{ padding: '10px', cursor: 'pointer' }} onClick={handleLogout}>Logout</li>
-                                {/* Add other options here */}
-                            </ul>
-                        </div>
+                    <div style={{position: 'fixed', bottom: -1, left: 0, height:'50%',width: '100%', backgroundColor: 'white', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.9)', zIndex: '100',borderTopRightRadius:'20px',borderTopLeftRadius:'20px', border:'1px solid #000'}}>
+                        <ul style={{ listStyle: 'none', padding: '0' }}>
+                            <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'red' }} onClick={handleLogout}>Log out</li>
+                            {/* Add other options here */}
+                        </ul>
                     </div>
                 )}
 
