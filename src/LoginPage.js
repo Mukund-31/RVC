@@ -104,43 +104,43 @@ function LoginPage({ setIsAuthenticated }) {
     };
 
     const shadowAnimation = {
-        boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+
         animation: 'shadowMove 5s infinite',
     };
 
     const gradientShadowAnimation = `@keyframes shadowMove {
   0% {
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(106, 90, 205, 1), inset 0 0 1000px rgba(106, 90, 205, 0.4);
+    box-shadow:  0 0 20px rgba(106, 90, 205, 1), inset 0 0 1000px rgba(106, 90, 205, 1);
   }
   20% {
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(60, 179, 113, 1), inset 0 0 1000px rgba(60, 179, 113, 0.4);
+    box-shadow:  0 0 20px rgba(60, 179, 113, 1), inset 0 0 1000px rgba(60, 179, 113, 1);
   }
   40% {
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 118, 179, 1), inset 0 0 1000px rgba(255, 118, 179, 0.4);
+    box-shadow: 0 0 20px rgba(255, 118, 179, 1), inset 0 0 1000px rgba(255, 118, 179, 1);
   }
   60% {
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 0, 0, 1), inset 0 0 1000px rgba(255, 0, 0, 0.4);
+    box-shadow:  0 0 20px rgba(255, 0, 0, 1), inset 0 0 1000px rgba(255, 0, 0, 1);
   }
   60% {
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 165, 0, 1), inset 0 0 1000px rgba(255, 165, 0, 0.4);
+    box-shadow:  0 0 20px rgba(255, 165, 0, 1), inset 0 0 1000px rgba(255, 165, 0, 1);
   }
   100% {
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 225, 255, 1),inset 0 0 1000px rgba(0, 225, 255, 0.4);
+    box-shadow:  0 0 20px rgba(0, 225, 255, 1),inset 0 0 1000px rgba(0, 225, 255, 1);
   }
 }`;
 
-
+    document.body.style.overflow = 'hidden';
     return (
-        <div style={{ backgroundColor:'#fff',display: 'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center',}} >
+        <div style={{ ...shadowAnimation,backgroundColor:'#fff',display: 'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center' , height:'1000px',marginTop:'-100px'}} >
             <style>{gradientShadowAnimation}</style>
-            <img src={homeIcon} style={{ width: '100px', marginBottom: '110px',marginTop: '80px' }} />
+            <img src={homeIcon} style={{ width: '100px', marginBottom: '130px',marginTop: '-50px', }} />
             <div style={{position:'relative', top:'-30px',  }}>
                 <button style={{  marginRight: '20px', fontSize: '15px', borderRadius: '8px',fontFamily: 'Helvetica' , border:'2px solid #000', height: '35px', width:'100px',backgroundColor: isSignup ? '' : '#000', color: isSignup ? '' : 'white', }} onClick={() => handleTabChange(false)}><b>Log In</b></button>
                 <button style={{ fontSize: '15px', borderRadius: '8px', fontFamily: 'Helvetica' , border:'2px solid #000', height: '35px', width:'100px',backgroundColor: isSignup ? '#000' : '', color: isSignup ? 'white' : '', }} onClick={() => handleTabChange(true)}><b>Sign Up</b></button>
             </div>
 
             {isSignup ? (
-                <form onSubmit={handleSignupSubmit}   style={{ backgroundColor:'#fff', marginBottom:'0px', paddingTop:'15px', height:'350px', width: '85%', maxWidth: '400px', textAlign: 'center', padding: '0 20px', position: 'relative',  borderRadius: '11px', ...shadowAnimation }}>
+                <form onSubmit={handleSignupSubmit}   style={{   paddingTop:'15px', height:'350px', width: '85%', maxWidth: '400px', textAlign: 'center', padding: '0 20px', position: 'relative',  borderRadius: '11px',  }}>
 
                     <div>
                         <input
@@ -276,7 +276,7 @@ function LoginPage({ setIsAuthenticated }) {
                 </form>
             ) : (
 
-            <form  onSubmit={handleLoginSubmit} style={{marginBottom:'0px', paddingTop:'16px', height:'200px', width: '85%', maxWidth: '400px', textAlign: 'center', padding: '0 20px', position: 'relative', background: 'transparent', borderRadius: '11px',  ...shadowAnimation }}>
+            <form  onSubmit={handleLoginSubmit} style={{marginBottom:'0px', paddingTop:'16px', height:'200px', width: '85%', maxWidth: '400px', textAlign: 'center', padding: '0 20px', position: 'relative', background: 'transparent', borderRadius: '11px',  }}>
 
                 <div>
                     <input
