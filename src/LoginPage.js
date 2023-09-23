@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import axios from 'axios';
-import homeIcon from './homeicon.png';
+import homeIcon from './logo.svg';
 function LoginPage({ setIsAuthenticated }) {
     const [formData, setFormData] = useState({
         username: '',
@@ -16,6 +16,7 @@ function LoginPage({ setIsAuthenticated }) {
 
     const [error, setError] = useState('');
     const [isSignup, setIsSignup] = useState(false);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -102,17 +103,45 @@ function LoginPage({ setIsAuthenticated }) {
         }
     };
 
+    const shadowAnimation = {
+        boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+        animation: 'shadowMove 5s infinite',
+    };
+
+    const gradientShadowAnimation = `@keyframes shadowMove {
+  0% {
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(106, 90, 205, 1), inset 0 0 1000px rgba(106, 90, 205, 0.4);
+  }
+  20% {
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(60, 179, 113, 1), inset 0 0 1000px rgba(60, 179, 113, 0.4);
+  }
+  40% {
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 118, 179, 1), inset 0 0 1000px rgba(255, 118, 179, 0.4);
+  }
+  60% {
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 0, 0, 1), inset 0 0 1000px rgba(255, 0, 0, 0.4);
+  }
+  60% {
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 165, 0, 1), inset 0 0 1000px rgba(255, 165, 0, 0.4);
+  }
+  100% {
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 225, 255, 1),inset 0 0 1000px rgba(0, 225, 255, 0.4);
+  }
+}`;
+
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center',  }} >
-            <img src={homeIcon} style={{ width: '100px', marginBottom: '110px',marginTop: '90px' }} />
-            <div style={{position:'relative', top:'-20px',  }}>
-                <button style={{marginRight: '20px', fontSize: '15px', borderRadius: '8px',fontFamily: 'Helvetica' , border:'0px', height: '35px', width:'100px',backgroundColor: isSignup ? '' : '#000', color: isSignup ? '' : 'white', }} onClick={() => handleTabChange(false)}><b>Log In</b></button>
-                <button style={{ fontSize: '15px', borderRadius: '8px', fontFamily: 'Helvetica' , border:'0px', height: '35px', width:'100px',backgroundColor: isSignup ? '#000' : '', color: isSignup ? 'white' : '', }} onClick={() => handleTabChange(true)}><b>Sign Up</b></button>
+        <div style={{ backgroundColor:'#fff',display: 'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center',}} >
+            <style>{gradientShadowAnimation}</style>
+            <img src={homeIcon} style={{ width: '100px', marginBottom: '110px',marginTop: '80px' }} />
+            <div style={{position:'relative', top:'-30px',  }}>
+                <button style={{  marginRight: '20px', fontSize: '15px', borderRadius: '8px',fontFamily: 'Helvetica' , border:'2px solid #000', height: '35px', width:'100px',backgroundColor: isSignup ? '' : '#000', color: isSignup ? '' : 'white', }} onClick={() => handleTabChange(false)}><b>Log In</b></button>
+                <button style={{ fontSize: '15px', borderRadius: '8px', fontFamily: 'Helvetica' , border:'2px solid #000', height: '35px', width:'100px',backgroundColor: isSignup ? '#000' : '', color: isSignup ? 'white' : '', }} onClick={() => handleTabChange(true)}><b>Sign Up</b></button>
             </div>
 
             {isSignup ? (
-                <form onSubmit={handleSignupSubmit} style={{ width: 'calc(100% - 25px)', textAlign: 'center',}}>
+                <form onSubmit={handleSignupSubmit}   style={{ backgroundColor:'#fff', marginBottom:'0px', paddingTop:'15px', height:'350px', width: '85%', maxWidth: '400px', textAlign: 'center', padding: '0 20px', position: 'relative',  borderRadius: '11px', ...shadowAnimation }}>
+
                     <div>
                         <input
                             type="text"
@@ -127,15 +156,20 @@ function LoginPage({ setIsAuthenticated }) {
                                 fontFamily: 'Helvetica',
                                 width: 'calc(100% - 25px)',
                                 height: '40px',
-                                background: '#efefef', // Transparent background
+                                background: 'rgba(255, 255, 255, 0.5)',
+
                                 border: '1px solid #ccc',
                                 fontSize: '18px',
+                                zIndex: '1',
                                 borderRadius: '11px',
                             }}
                             pattern="^[a-zA-Z0-9._%+-]+@(rvce.edu.in|rvu.edu.in)$"
                             title="Please enter a valid email address ending with @rvce.edu.in or @rvu.edu.in"
                         />
                     </div>
+
+
+
                     <div>
                         <input
                             type="text"
@@ -150,9 +184,10 @@ function LoginPage({ setIsAuthenticated }) {
                                 fontFamily: 'Helvetica',
                                 width: 'calc(100% - 25px)',
                                 height: '40px',
-                                background: '#efefef', // Transparent background
+                                background: 'rgba(255, 255, 255, 0.5)',
                                 border: '1px solid #ccc',
                                 fontSize: '18px',
+                                zIndex: '1',
                                 borderRadius: '11px',
 
                             }}
@@ -173,9 +208,10 @@ function LoginPage({ setIsAuthenticated }) {
                                 fontFamily: 'Helvetica',
                                 width: 'calc(100% - 25px)',
                                 height: '40px',
-                                background: '#efefef', // Transparent background
+                                background: 'rgba(255, 255, 255, 0.5)',
                                 border: '1px solid #ccc',
                                 fontSize: '18px',
+                                zIndex: '1',
                                 borderRadius: '11px',
 
                             }}
@@ -196,9 +232,10 @@ function LoginPage({ setIsAuthenticated }) {
                                 fontFamily: 'Helvetica',
                                 width: 'calc(100% - 25px)',
                                 height: '40px',
-                                background: '#efefef', // Transparent background
+                                background: 'rgba(255, 255, 255, 0.5)',
                                 border: '1px solid #ccc',
                                 fontSize: '18px',
+                                zIndex: '1',
                                 borderRadius: '11px',
 
                             }}
@@ -219,9 +256,10 @@ function LoginPage({ setIsAuthenticated }) {
                                 fontFamily: 'Helvetica',
                                 width: 'calc(100% - 25px)',
                                 height: '40px',
-                                background: '#efefef', // Transparent background
+                                background: 'rgba(255, 255, 255, 0.5)',
                                 border: '1px solid #ccc',
                                 fontSize: '18px',
+                                zIndex: '1',
                                 borderRadius: '11px',
 
                             }}
@@ -231,22 +269,15 @@ function LoginPage({ setIsAuthenticated }) {
 
 
                     <button type="submit" style={{
-                        boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
-                        color: '#fff',
-                        fontFamily: 'Helvetica',
-                        width: '100%',
-                        height: '40px',
-                        background: '#000',
-                        border: '1px solid #ccc',
-                        fontSize: '18px',
-                        borderRadius: '50px',
+                        boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',color:'#fff', fontFamily: 'Helvetica', width: 'calc(100% - 25px)', height: '40px',background:'#000',border:'1px solid #ccc',fontSize:'18px',borderRadius: '50px',
                     }}>
                         Sign Up
                     </button>
                 </form>
             ) : (
 
-            <form  onSubmit={handleLoginSubmit} style={{width:'calc(100% - 25px)', textAlign: 'center'}}>
+            <form  onSubmit={handleLoginSubmit} style={{marginBottom:'0px', paddingTop:'16px', height:'200px', width: '85%', maxWidth: '400px', textAlign: 'center', padding: '0 20px', position: 'relative', background: 'transparent', borderRadius: '11px',  ...shadowAnimation }}>
+
                 <div>
                     <input
                         type="text"
@@ -254,7 +285,17 @@ function LoginPage({ setIsAuthenticated }) {
                         placeholder="Username"
                         value={formData.username}
                         onChange={handleChange}
-                        style={{  boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',marginBottom:'15px', paddingLeft:'18px', fontFamily: 'Helvetica', width:'calc(100% - 25px)', height: '40px',background: '#efefef',border:'1px solid #ccc',fontSize:'18px',borderRadius: '11px',}}
+                        style={{boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+                            marginBottom: '15px',
+                            paddingLeft: '18px',
+                            fontFamily: 'Helvetica',
+                            width: 'calc(100% - 25px)',
+                            height: '40px',
+                            background: 'rgba(255, 255, 255, 0.5)',
+                            border: '1px solid #ccc',
+                            fontSize: '18px',
+                            zIndex: '1',
+                            borderRadius: '11px',}}
                     />
                 </div>
                 <div>
@@ -264,11 +305,21 @@ function LoginPage({ setIsAuthenticated }) {
                         placeholder="Password"
                         value={formData.password}
                         onChange={handleChange}
-                        style={{  boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',marginBottom:'15px', paddingLeft:'18px', fontFamily: 'Helvetica', width:'calc(100% - 25px)', height: '40px',background:'#efefef',border:'1px solid #ccc',fontSize:'18px',borderRadius: '11px',}}
+                        style={{  boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+                            marginBottom: '15px',
+                            paddingLeft: '18px',
+                            fontFamily: 'Helvetica',
+                            width: 'calc(100% - 25px)',
+                            height: '40px',
+                            background: 'rgba(255, 255, 255, 0.5)',
+                            border: '1px solid #ccc',
+                            fontSize: '18px',
+                            zIndex: '1',
+                            borderRadius: '11px',}}
                     />
                 </div>
                 <button type="submit"
-                        style={{  boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',color:'#fff', fontFamily: 'Helvetica', width: '100%', height: '40px',background:'#000',border:'1px solid #ccc',fontSize:'18px',borderRadius: '50px',}}
+                        style={{  boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',color:'#fff', fontFamily: 'Helvetica', width: 'calc(100% - 25px)', height: '40px',background:'#000',border:'1px solid #ccc',fontSize:'18px',borderRadius: '50px',}}
                 >Log In</button>
             </form>
             )}

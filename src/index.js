@@ -17,7 +17,7 @@ const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [currentPage, setCurrentPage] = useState('dashboard');
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const [activeTab, setActiveTab] = useState('mentioned');
+    const [activeTab, setActiveTab] = useState('confessions');
     const handleLogout = () => {
         // Implement your logout logic here, e.g., clearing user session
         localStorage.removeItem('token');
@@ -43,14 +43,12 @@ const App = () => {
 
 
             mentioned: [
-        { content: 'Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-        { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
-        { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
-        { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
-        { content: 'Another day, another post.' ,date_posted: "2023-08-06T15:15:57Z",},
-        { content: 'Another day, another post.',date_posted: "2023-08-06T15:15:57Z", },
-        { content: 'Another day, another post.' ,date_posted: "2023-08-06T15:15:57Z",}
-
+                {mentioned_user:'', content: '@abc Hello, @rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
+                {mentioned_user:'', content: '@abc Hello, @rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
+                {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
+                {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
+                {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
+                {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
 
             // ... other posts
         ],

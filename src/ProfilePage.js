@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import menuIcon from './menuicon.png';
 
-    const ProfilePage = ({user ,activeTab='mentioned', handleTabClick,setUserData,usersData}) => {
+    const ProfilePage = ({user ,activeTab='confessions', handleTabClick,setUserData,usersData}) => {
         const [windowWidth, setWindowWidth] = useState(window.innerWidth);
         const [showStickyNote, setShowStickyNote] = useState(true);
         const [searchQuery, setSearchQuery] = useState('');
@@ -124,6 +124,19 @@ import menuIcon from './menuicon.png';
 
                 <div style={{ display: 'flex', marginTop: '20px' , justifyContent: 'space-between',width: '100%', }}>
 
+                    <div
+                        className={`tab ${activeTab === 'confessions' ? 'active' : ''}`}
+                        onClick={() => handleTabClick('confessions')}
+                        style={{
+                            flex: 1,
+                            fontFamily: 'Helvetica', fontSize: '20px',
+                            textAlign: 'center',
+                            color: activeTab === 'confessions' ? '#000' : '#c0c0c0',
+                        }}
+
+                    >
+                        <b>Confessions</b>
+                    </div>
 
                     <div
                         className={`tab ${activeTab === 'mentioned' ? 'active' : ''}`}
@@ -154,9 +167,10 @@ import menuIcon from './menuicon.png';
                 </div>
                 <hr />
 
-                {activeTab === 'mentioned' && (
+                {activeTab === 'confessions' && (
                     <>
-                        {user.mentioned.map((mention, index) => (
+                        {user.confessions.map((confession, index) => (
+
                             <div key={index} style={{
                                 borderRadius: '11px',
                                 borderBottomLeftRadius: '30px',
@@ -170,15 +184,74 @@ import menuIcon from './menuicon.png';
                                 maxWidth: '100%',
                                 boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)'
                             }}>
-                                <div
-                                    style={{zIndex: '1', fontFamily: 'Helvetica', position: 'relative'}}>
-                                    {mention.mentioned_user !== null && <p style={{
-                                        fontFamily: 'Helvetica',
+                                <div style={{ zIndex: '1', fontFamily: 'Helvetica', position: 'relative' }}>
+
+                                    <p style={{
+                                        position: 'absolute',
+                                        top: '-30px',
+                                        right: '4px',
                                         color: '#000',
-                                        fontSize: '15px',
+                                        fontFamily: 'Helvetica'
+                                    }}>{formatTimeDifference(confession.date_posted)}</p>
+
+                                    <p style={{
+                                        fontFamily: 'Helvetica',
                                         position: 'relative',
-                                        top: '-15px'
-                                    }}><b>@{mention.mentioned_user}</b></p>}
+                                        left: '27px',
+                                        top: '-10px'
+                                    }}>
+                            <span dangerouslySetInnerHTML={{ __html: confession.content.replace(
+                                    /@(\w+)/g, // Regular expression to find mentioned users
+                                    (match, username) => `<b>@${username}</b>`
+                                ) }} />
+                                    </p>
+                                </div>
+                                <div style={{
+                                    borderBottom: '3px solid #000',
+                                    borderRight: '1px solid #000',
+                                    borderTopRightRadius: '0px',
+                                    borderTopLeftRadius: '30px',
+                                    borderBottomRightRadius: '11px',
+                                    borderBottomLeftRadius: '2px',
+                                    position: 'absolute',
+                                    bottom: '-0.4px',
+                                    left: '30.5px',
+                                    width: '30px',
+                                    height: '31px',
+                                    background: getStickyNoteColor1(index),
+                                    clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%, 0% 75%)',
+                                    zIndex: '0',
+                                    transform: 'rotate(-83.6deg)',
+                                    transformOrigin: 'bottom left',
+                                }}
+                                />
+                            </div>
+                        ))}
+
+                    </>
+                )}
+
+
+
+                {activeTab === 'mentioned' && (
+                    <>
+                        {user.mentioned.map((mention, index) => (
+
+                            <div key={index} style={{
+                                borderRadius: '11px',
+                                borderBottomLeftRadius: '30px',
+                                background: getStickyNoteColor(index),
+                                position: 'relative',
+                                top: '0',
+                                zIndex: 'auto',
+                                border: '0px solid #000',
+                                padding: '10px',
+                                margin: '10px',
+                                maxWidth: '100%',
+                                boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)'
+                            }}>
+                                <div style={{ zIndex: '1', fontFamily: 'Helvetica', position: 'relative' }}>
+
                                     <p style={{
                                         position: 'absolute',
                                         top: '-30px',
@@ -186,32 +259,37 @@ import menuIcon from './menuicon.png';
                                         color: '#000',
                                         fontFamily: 'Helvetica'
                                     }}>{formatTimeDifference(mention.date_posted)}</p>
+
                                     <p style={{
                                         fontFamily: 'Helvetica',
                                         position: 'relative',
                                         left: '27px',
-                                        top: '-30px'
-                                    }}>{mention.content}</p>
+                                        top: '-10px'
+                                    }}>
+                            <span dangerouslySetInnerHTML={{ __html: mention.content.replace(
+                                    /@(\w+)/g, // Regular expression to find mentioned users
+                                    (match, username) => `<b>@${username}</b>`
+                                ) }} />
+                                    </p>
                                 </div>
-                                <div
-                                    style={{
-                                        borderBottom: '3px solid #000',
-                                        borderRight: '1px solid #000',
-                                        borderTopRightRadius: '0px',
-                                        borderTopLeftRadius: '30px',
-                                        borderBottomRightRadius: '11px',
-                                        borderBottomLeftRadius: '2px',
-                                        position: 'absolute',
-                                        bottom: '-0.4px',
-                                        left: '30.5px',
-                                        width: '30px',
-                                        height: '31px',
-                                        background: getStickyNoteColor1(index),
-                                        clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%, 0% 75%)',
-                                        zIndex: '0',
-                                        transform: 'rotate(-83.6deg)',
-                                        transformOrigin: 'bottom left',
-                                    }}
+                                <div style={{
+                                    borderBottom: '3px solid #000',
+                                    borderRight: '1px solid #000',
+                                    borderTopRightRadius: '0px',
+                                    borderTopLeftRadius: '30px',
+                                    borderBottomRightRadius: '11px',
+                                    borderBottomLeftRadius: '2px',
+                                    position: 'absolute',
+                                    bottom: '-0.4px',
+                                    left: '30.5px',
+                                    width: '30px',
+                                    height: '31px',
+                                    background: getStickyNoteColor1(index),
+                                    clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%, 0% 75%)',
+                                    zIndex: '0',
+                                    transform: 'rotate(-83.6deg)',
+                                    transformOrigin: 'bottom left',
+                                }}
                                 />
                             </div>
                         ))}
