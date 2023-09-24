@@ -115,7 +115,7 @@ function LoginPage({ setIsAuthenticated }) {
 
     const shadowAnimation = {
 
-        animation: 'shadowMove 5s infinite',
+        animation: 'shadowMove linear 5s infinite',
     };
 
     const gradientShadowAnimation = `@keyframes shadowMove {
@@ -143,10 +143,11 @@ function LoginPage({ setIsAuthenticated }) {
     return (
         <div style={{backgroundColor:'#fff',display: 'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center' }} >
             <style>{gradientShadowAnimation}</style>
+
             <img src={homeIcon} style={{ width: '100px', marginBottom: '80px',marginTop: '40px', }} />
             <div style={{position:'relative', top:'-30px',  }}>
-                <button style={{  marginRight: '20px', fontSize: '15px', borderRadius: '8px',fontFamily: 'Helvetica' , border:'2px solid #000', height: '35px', width:'100px',backgroundColor: isSignup ? '' : '#000', color: isSignup ? '' : 'white', }} onClick={() => handleTabChange(false)}><b>Log In</b></button>
-                <button style={{ fontSize: '15px', borderRadius: '8px', fontFamily: 'Helvetica' , border:'2px solid #000', height: '35px', width:'100px',backgroundColor: isSignup ? '#000' : '', color: isSignup ? 'white' : '', }} onClick={() => handleTabChange(true)}><b>Sign Up</b></button>
+                <button style={{ marginRight: '20px', fontSize: '15px',fontFamily: 'Helvetica' ,  padding: '0.7em 1.7em', fontsize: '18px', borderRadius: '0.5em', background: '#e8e8e8', border: '1px solid #e8e8e8', boxShadow: '6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff', backgroundColor: isSignup ? '' : '#000', color: isSignup ? '' : 'white', }} onClick={() => handleTabChange(false)}><b>Log In</b></button>
+                <button style={{  fontSize: '15px',fontFamily: 'Helvetica' ,  padding: '0.7em 1.7em', fontsize: '18px', borderRadius: '0.5em', background: '#e8e8e8', border: '1px solid #e8e8e8', boxShadow: '6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff',backgroundColor: isSignup ? '#000' : '', color: isSignup ? 'white' : '', }} onClick={() => handleTabChange(true)}><b>Sign Up</b></button>
             </div>
 
             {isSignup ? (
