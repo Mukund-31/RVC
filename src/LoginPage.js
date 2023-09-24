@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 import homeIcon from './logo.svg';
 function LoginPage({ setIsAuthenticated }) {
@@ -83,6 +83,16 @@ function LoginPage({ setIsAuthenticated }) {
         }
     };
 
+    useEffect(() => {
+        // Disable scrolling when the component mounts
+        document.body.style.overflow = 'hidden';
+
+        // Re-enable scrolling when the component unmounts
+        return () => {
+            document.body.style.overflow = 'visible'; // or 'auto' if you want to enable scrolling
+        };
+    }, []);
+
     const handleSignupSubmit = async (e) => {
         e.preventDefault();
 
@@ -129,7 +139,7 @@ function LoginPage({ setIsAuthenticated }) {
   }
 }`;
 
-    document.body.style.overflow = 'hidden';
+
     return (
         <div style={{ ...shadowAnimation,backgroundColor:'#fff',display: 'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center' , height:'1000px',marginTop:'-100px'}} >
             <style>{gradientShadowAnimation}</style>
