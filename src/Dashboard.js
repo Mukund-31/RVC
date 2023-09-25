@@ -5,7 +5,8 @@ import postIcon from './posticon.png';
 import profileIcon from './profileicon.png';
 import rvclogo from './rvclogo.png';
 import likeicon from './likeicon.png';
-import dislikeicon from './dislike.png';
+import dislikeicon from './dislikeicon.png';
+import commenticon from './commenticon.png';
 
 
 const Dashboard = ({ user,   }) => {
@@ -117,6 +118,16 @@ const Dashboard = ({ user,   }) => {
                             style={{ backgroundColor:'transparent',border:'none',}}
                         >
                             {likeState[confession.id] ? <img src={likeicon} style={{height:'25px',width:'25px'}}/>  : <img src={dislikeicon} style={{height:'25px',width:'25px'}}/> }
+                        </button>
+                        <button
+
+                            style={{
+                                backgroundColor: 'transparent',
+                                border: 'none',
+                            }}
+                        >
+                            {/* Add your comment icon here */}
+                            <img src={commenticon} style={{ height: '25px', width: '25px' }} />
                         </button>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
