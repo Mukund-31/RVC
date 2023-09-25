@@ -106,22 +106,22 @@ const App = ({user}) => {
 
     const switchToConfessionPage = () => {
         setCurrentPage('confessionPage');
-        setActiveTab('confessionPage');
+
     };
 
     const switchToDashboard = () => {
         setCurrentPage('dashboard');
-        setActiveTab('dashboard');
+
     };
 
     const switchToProfilePage = () => {
         setCurrentPage('profilePage');
-        setActiveTab('profilePage');
+
     };
 
     const switchToSearchPage = () => {
         setCurrentPage('searchPage');
-        setActiveTab('searchPage');
+
     };
 
 
