@@ -13,7 +13,7 @@ import searchIcon from './searchicon.png';
 
 
 
-const App = () => {
+const App = ({user}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [currentPage, setCurrentPage] = useState('dashboard');
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -25,29 +25,49 @@ const App = () => {
     };
 
     const [userData, setUserData] = useState({
-        name: 'Friend1',
+        name: 'Friend2',
+        id:'2',
+        username:'tester_2',
         profileImage: '.profileicon',
         branch: 'CSE26',
         bio: 'A passionate blogger and explorer!',
 
 
         confessions: [
-            {mentioned_user:'', content: '@abc Hello, @rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            {mentioned_user:'', content: '@abc Hello, @rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-            {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
+            {
+                "id": 1,
+                "mentioned_user": null,
+                "content": "@tester_2 hello mister",
+                "date_posted": "2023-09-18T06:13:47.016000Z",
+                "author": {
+                    "id": 1,
+                    "username": "tester_1",
+                    "email": "",
+                    "first_name": "",
+                    "last_name": "",
+                    "password": "pbkdf2_sha256$600000$crDWiTkjmkfBnE5pDONpIx$2qKL6gKeoW8JSQtJNSMla0cyYkdq46KpN5+YdLkWuYs=",
+
+                }
+            },
             // ... other posts
+        ],
+
+        comments:[
+            {
+                "id": 1,
+        "post_id": 1,
+        "comment": "Lorem Ipsum Dolor",
+        "user_commented": {
+        "id": 2,
+            "username": "tester_2",
+            "email": "",
+            "first_name": "",
+            "last_name": "",
+            "password": "pbkdf2_sha256$600000$4ilIIV6FQNK6Ngaw1ctO3U$UnNaZDD/yMBvt+v615TSzHLyF2OCMWgnWn3Gyf/lu0U="
+             },
+             "upvote": false,
+             "downvote":false,
+             },
         ],
 
 
@@ -77,8 +97,8 @@ const App = () => {
     });
 
     const [usersData, setUsersData] = useState([
-        { name: 'Friend1',username:'abc',image: 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png' },
-        { name: 'Friend2',username:'abc', image: 'C:\\Users\\Prakhar Jain\\WebstormProjects\\front-end\\Front-End\\Front-End\\My.jpg' },
+        { id:'1', name: 'Friend1',username:'tester_1',image: 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png' },
+        { id:'2',name: 'Friend2',username:'tester_2', image: 'C:\\Users\\Prakhar Jain\\WebstormProjects\\front-end\\Front-End\\Front-End\\My.jpg' },
         { name: 'Friend3',username:'abc',image: 'C://Users//Prakhar Jain//WebstormProjects//front-end//Front-End//Front-End//My.jpg' },
         // ... other users
     ]);
@@ -119,6 +139,7 @@ const App = () => {
             setIsAuthenticated(true);
         }
     }, []);
+
     return (
         <div>
             <nav>
@@ -135,7 +156,7 @@ const App = () => {
             </nav>
             {isAuthenticated ? (
             <>
-            {currentPage === 'dashboard' && <Dashboard user={userData} switchToConfessionPage={switchToConfessionPage} />}
+            {currentPage === 'dashboard' && <Dashboard user={userData}  switchToConfessionPage={switchToConfessionPage} />}
             {currentPage === 'confessionPage' && <ConfessionPage switchToDashboard={switchToDashboard} users={usersData} />}
             {currentPage === 'profilePage' &&<ProfilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} />}
             {currentPage === 'searchPage' && (<SearchPage usersData={usersData} />)}

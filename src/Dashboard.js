@@ -3,8 +3,8 @@ import homeIcon from './homeicon.png';
 import searchIcon from './searchicon.png';
 import postIcon from './posticon.png';
 import profileIcon from './profileicon.png';
-
-const Dashboard = ({ user }) => {
+import rvclogo from './rvclogo.png';
+const Dashboard = ({ user,   }) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showStickyNote, setShowStickyNote] = useState(true);
 
@@ -60,10 +60,10 @@ const Dashboard = ({ user }) => {
     return (
         <div style={{ marginBottom: windowWidth <= 768 ? '60px' : '0' }}>
             {/* Top Bar */}
-            <div style={{ display: 'flex', alignItems: 'center',justifyContent:'center', padding: '13px', borderBottom: '1px solid #808080' }}>
+            <div style={{height:'50px', display: 'flex', alignItems: 'center',justifyContent:'center', padding: '15px', }}>
                 <div>
                     {/* Logo */}
-                    <img src="path_to_your_logo.png" alt="RV Connected" style={{ height: '50px'}} />
+                    <img src={rvclogo} alt="RV Connected" style={{  paddingTop:'10px', height: '150px',width:'150px'}} />
                 </div>
 
             </div>
@@ -124,8 +124,10 @@ const Dashboard = ({ user }) => {
                     }}
                     />
                 </div>
+
             ))}
         </div>
     );
 };
+
 export default Dashboard;
