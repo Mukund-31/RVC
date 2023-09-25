@@ -37,7 +37,7 @@ const App = ({user}) => {
             {
                 "id": 1,
                 "mentioned_user": null,
-                "content": "@tester_2 hello mister",
+                "content": "@tester_2 hello mister mmmmmmmmmmmmmmm mmmmmmmmmmmmmmm mmmmmmmmmmmmmmm mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm mmmmmmmmmmmmmmm",
                 "date_posted": "2023-09-18T06:13:47.016000Z",
                 "author": {
                     "id": 1,
@@ -139,6 +139,8 @@ const App = ({user}) => {
             setIsAuthenticated(true);
         }
     }, []);
+
+
 
     return (
         <div>

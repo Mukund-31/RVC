@@ -4,9 +4,17 @@ import searchIcon from './searchicon.png';
 import postIcon from './posticon.png';
 import profileIcon from './profileicon.png';
 import rvclogo from './rvclogo.png';
+import likeicon from './likeicon.png';
+import dislikeicon from './dislike.png';
+
+
 const Dashboard = ({ user,   }) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showStickyNote, setShowStickyNote] = useState(true);
+    const [likeState, setLikeState] = useState({});
+
+
+
 
 
     const formatTimeDifference = (confessionDate) => {
@@ -57,6 +65,13 @@ const Dashboard = ({ user,   }) => {
         return colors[index % colors.length];
     };
 
+    const handleLikeDislike = (confessionId) => {
+        const newLikeState = { ...likeState };
+        newLikeState[confessionId] = !newLikeState[confessionId];
+        setLikeState(newLikeState);
+    };
+
+
     return (
         <div style={{ marginBottom: windowWidth <= 768 ? '60px' : '0' }}>
             {/* Top Bar */}
@@ -80,30 +95,48 @@ const Dashboard = ({ user,   }) => {
                     padding: '10px',
                     margin: '10px',
                     maxWidth: '100%',
-                    boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)'
+                    boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+                    whiteSpace: 'pre-line', /* Allow text to wrap to the next line */
+                    overflow: 'hidden', /* Hide overflowing text */
+                    overflowWrap: 'break-word',
+
                 }}>
-                    <div style={{ zIndex: '1', fontFamily: 'Helvetica', position: 'relative' }}>
+
+                    <div style={{ zIndex: '1', fontFamily: 'Helvetica', position: 'relative'  }}>
+
 
                         <p style={{
                             position: 'absolute',
-                            top: '-30px',
+                            top: '-15px',
                             right: '4px',
                             color: '#000',
                             fontFamily: 'Helvetica'
                         }}>{formatTimeDifference(confession.date_posted)}</p>
+                        <button
+                            onClick={() => handleLikeDislike(confession.id)}
+                            style={{ backgroundColor:'transparent',border:'none',}}
+                        >
+                            {likeState[confession.id] ? <img src={likeicon} style={{height:'25px',width:'25px'}}/>  : <img src={dislikeicon} style={{height:'25px',width:'25px'}}/> }
+                        </button>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
                         <p style={{
                             fontFamily: 'Helvetica',
                             position: 'relative',
                             left: '27px',
-                            top: '-10px'
+                            top: '-10px',
+                            maxWidth: '87%',
                         }}>
                             <span dangerouslySetInnerHTML={{ __html: confession.content.replace(
                                     /@(\w+)/g, // Regular expression to find mentioned users
                                     (match, username) => `<b>@${username}</b>`
                                 ) }} />
+
                         </p>
+
+                        </div>
                     </div>
+
                     <div style={{
                         borderBottom: '3px solid #000',
                         borderRight: '1px solid #000',
