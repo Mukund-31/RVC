@@ -9,7 +9,7 @@ import homeIcon from './homeicon.png';
 import postIcon from './posticon.png';
 import profileIcon from './profileicon.png';
 import searchIcon from './searchicon.png';
-import dashboard from "./Dashboard";
+
 
 
 
@@ -50,25 +50,73 @@ const App = ({user}) => {
 
                 }
             },
+            {
+                "id": 2,
+                "mentioned_user": null,
+                "content": "@tester_2 hello mister mmmmmmmmmmmmmmm mmmmmmmmmmmmmmm mmmmmmmmmmmmmmm mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm mmmmmmmmmmmmmmm",
+                "date_posted": "2023-09-18T06:13:47.016000Z",
+                "author": {
+                    "id": 1,
+                    "username": "tester_1",
+                    "email": "",
+                    "first_name": "",
+                    "last_name": "",
+                    "password": "pbkdf2_sha256$600000$crDWiTkjmkfBnE5pDONpIx$2qKL6gKeoW8JSQtJNSMla0cyYkdq46KpN5+YdLkWuYs=",
+
+                }
+            },
             // ... other posts
         ],
 
         comments:[
             {
                 "id": 1,
-        "post_id": 1,
-        "comment": "Lorem Ipsum Dolor",
+        "post_id": 2,
+        "comment": "Lorem Ipsum Dolorlllllllllllll lllllllllllllllllllllll lllllllll llllllllllllllll lllllllllll lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll",
         "user_commented": {
         "id": 2,
             "username": "tester_2",
             "email": "",
-            "first_name": "",
-            "last_name": "",
+            "profilepic": 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png',
+            "first_name": "Friend",
+            "last_name": "2",
             "password": "pbkdf2_sha256$600000$4ilIIV6FQNK6Ngaw1ctO3U$UnNaZDD/yMBvt+v615TSzHLyF2OCMWgnWn3Gyf/lu0U="
              },
              "upvote": false,
              "downvote":false,
              },
+            {
+                "id": 1,
+                "post_id": 2,
+                "comment": "Lorem Ipsum Dolorlllllllllllll lllllllllllllllllllllll lllllllll llllllllllllllll lllllllllll lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll",
+                "user_commented": {
+                    "id": 2,
+                    "username": "tester_2",
+                    "email": "",
+                    "profilepic": 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png',
+                    "first_name": "Friend",
+                    "last_name": "2",
+                    "password": "pbkdf2_sha256$600000$4ilIIV6FQNK6Ngaw1ctO3U$UnNaZDD/yMBvt+v615TSzHLyF2OCMWgnWn3Gyf/lu0U="
+                },
+                "upvote": false,
+                "downvote":false,
+            },
+            {
+                "id": 1,
+                "post_id": 1,
+                "comment": "Lorem Ipsum Dolorlllllllllllll lllllllllllllllllllllll lllllllll llllllllllllllll lllllllllll lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll",
+                "user_commented": {
+                    "id": 2,
+                    "username": "tester_2",
+                    "email": "",
+                    "profilepic": 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png',
+                    "first_name": "Friend",
+                    "last_name": "2",
+                    "password": "pbkdf2_sha256$600000$4ilIIV6FQNK6Ngaw1ctO3U$UnNaZDD/yMBvt+v615TSzHLyF2OCMWgnWn3Gyf/lu0U="
+                },
+                "upvote": false,
+                "downvote":false,
+            },
         ],
 
 
