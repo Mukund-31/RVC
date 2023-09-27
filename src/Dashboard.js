@@ -95,7 +95,9 @@ const Dashboard = ({ user }) => {
         } else {
             return (count / 1000000).toFixed(1) + 'M';
         }
+
     };
+
 
     return (
         <div style={{ marginBottom: windowWidth <= 768 ? '60px' : '0' }}>
@@ -210,7 +212,6 @@ const Dashboard = ({ user }) => {
                                             </div>
                                         </div>
                                     ))}
-
                                 </div>
                             )}
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -253,21 +254,24 @@ const Dashboard = ({ user }) => {
             ))}
             {/* Bottom Navigation */}
             {isCommentDropdownOpen ? (
-                // Render the comment textbox when the dropdown is open
-                <div style={{zIndex:'100', position: 'fixed', bottom: '-10px', left: '0px', right: '0px'}}>
+
+                <div style={{zIndex:'100', position: 'fixed', bottom: '10px', left: '0px', right: '0px',}}>
+                    <div style={{background:'#fff', boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)',borderRadius:'11px', height:'155px',zIndex:'100' ,width:'100%',position:'relative',top:'70px' }}>
+
                     {/* You can add your textbox and other components here */}
                     {/* For example, an input field for entering comments */}
-                    <input type="text" placeholder="Enter your comment"
-                           style={{paddingLeft:'18px', fontFamily: 'Helvetica', width:'calc(100% - 21px)', height: '70px',background:'#fff',border:'0px solid #ccc',fontSize:'20px',borderRadius: '11px',boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)'}}
+                    <textarea type="text" placeholder="Enter your comment"
+                           style={{ resize: 'none',whiteSpace: 'pre-wrap', overflowWrap: 'break-word',  paddingBottom:'0px',paddingLeft:'18.5px', fontFamily: 'Helvetica', width:'calc(100% - 21px)', height: '40px',background:'transparent',border:'0px solid #ccc',fontSize:'20px',borderRadius: '0px', position:'relative', top:'10px'}}
                     />
+                    <button  style={{ float: 'right',right:'10px',position: 'relative', bottom: '-12px', backgroundColor: '#000', color: '#fff', border: 'none', borderRadius: '11px', padding: '6px 12px', fontSize: '15px', cursor: 'pointer', fontFamily:'Helvetica' }}><b>Comment</b></button>
                 </div>
+                </div>
+
             ) : (
                 // Render your bottom navigation when the dropdown is closed
                 <div style={{ position: 'fixed', bottom: '0', left: '0', right: '0', backgroundColor: '#333' }}>
                 </div>
             )}
-
-
         </div>
     );
 };
