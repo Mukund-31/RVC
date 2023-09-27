@@ -15,7 +15,7 @@ const Dashboard = ({ user }) => {
     const [isCommentDropdownOpen, setCommentDropdownOpen] = useState(false);
     const [selectedConfessionComments, setSelectedConfessionComments] = useState([]);
     const [selectedConfessionId, setSelectedConfessionId] = useState(null);
-
+    const [commentCounts, setCommentCounts] = useState({});
     const formatTimeDifference = (confessionDate) => {
         const currentDate = new Date();
         const timeDifference = currentDate - new Date(confessionDate);
@@ -79,6 +79,24 @@ const Dashboard = ({ user }) => {
         }
     };
 
+    useEffect(() => {
+        const counts = {};
+        user.confessions.forEach((confession) => {
+            const comments = user.comments.filter((comment) => comment.post_id === confession.id);
+            counts[confession.id] = comments.length;
+        });
+        setCommentCounts(counts);
+    }, [user.confessions, user.comments]);
+    const formatCommentCount = (count) => {
+        if (count < 1000) {
+            return count.toString();
+        } else if (count < 1000000) {
+            return (count / 1000).toFixed(1) + 'K';
+        } else {
+            return (count / 1000000).toFixed(1) + 'M';
+        }
+    };
+
     return (
         <div style={{ marginBottom: windowWidth <= 768 ? '60px' : '0' }}>
             {/* Top Bar */}
@@ -126,6 +144,9 @@ const Dashboard = ({ user }) => {
                                     border: 'none',
                                 }}>
                                 <img src={commenticon} style={{ height: '25px', width: '25px' }} />
+                                <span style={{ marginLeft: '4px',fontFamily: 'Helvetica', position: 'relative', top:'-7px' }}>
+                            {formatCommentCount(commentCounts[confession.id] || 0)}
+                                </span>
                             </button>
                             {isCommentDropdownOpen && selectedConfessionComments.length > 0 && (
                                 <div style={{

@@ -287,7 +287,7 @@ function LoginPage({ setIsAuthenticated }) {
                 </form>
             ) : (
 
-            <form  onSubmit={handleLoginSubmit} style={{...shadowAnimation, marginBottom:'0px', paddingTop:'16px', height:'200px', width: '85%', maxWidth: '400px', textAlign: 'center', padding: '0 20px', position: 'relative', background: 'transparent', borderRadius: '11px',  }}>
+            <form  onSubmit={handleLoginSubmit} style={{...shadowAnimation, marginTop:'50px', paddingTop:'16px', height:'200px', width: '85%', maxWidth: '400px', textAlign: 'center', padding: '0 20px', position: 'relative', background: 'transparent', borderRadius: '11px',  }}>
 
                 <div>
                     <input
