@@ -201,7 +201,7 @@ const App = ({user}) => {
         <div>
             <nav>
                 {isAuthenticated && windowWidth <= 768 && (
-                    <div style={{ borderRadius:'11px', display: 'flex', justifyContent: 'space-around', fontSize: '33px', border: '0px solid #808080', marginBottom:'-1px', padding: '13px', position: 'fixed', bottom: '0', left: '0', right: '0', backgroundColor: '#ffffff', zIndex: '100', width: '100%', boxSizing: 'border-box', boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)', }}>
+                    <div style={{ height:'70px',borderRadius:'11px', display: 'flex', justifyContent: 'space-around', fontSize: '33px', border: '0px solid #808080', marginBottom:'-1px', padding: '13px', position: 'fixed', bottom: '-10px', left: '0', right: '0', backgroundColor: '#ffffff', zIndex: '100', width: '100%', boxSizing: 'border-box', boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)', }}>
                         <img src={homeIcon} onClick={switchToDashboard} style={{borderRadius:'50%', width: '31px', height: '31px' ,transform: currentPage === 'dashboard' ? 'scale(1.3)' : 'scale(1)', }} />
                         <img src={searchIcon} onClick={switchToSearchPage} style={{borderRadius:'50%', width: '31px', height: '31px' ,transform: currentPage === 'searchPage' ? 'scale(1.3)' : 'scale(1)', }} />
                         <img src={postIcon} onClick={switchToConfessionPage} style={{ borderRadius:'30%', width: '31px', height: '31px' ,transform: currentPage === 'confessionPage' ? 'scale(1.3)' : 'scale(1)', }} />
