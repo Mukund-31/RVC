@@ -129,11 +129,11 @@ const Dashboard = ({ user }) => {
                             </button>
                             {isCommentDropdownOpen && selectedConfessionComments.length > 0 && (
                                 <div style={{
-                                    bottom: -1,
+                                    bottom: 50,
                                     overflowY: 'scroll',
                                     position: 'fixed',
                                     left: 0,
-                                    height:'60%',
+                                    height:'50%',
                                     width: '100%',
                                     backgroundColor: 'white',
                                     zIndex: '100',
@@ -189,6 +189,7 @@ const Dashboard = ({ user }) => {
                                             </div>
                                         </div>
                                     ))}
+
                                 </div>
                             )}
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -228,8 +229,24 @@ const Dashboard = ({ user }) => {
                         }}
                         />
                     </div>
-
             ))}
+            {/* Bottom Navigation */}
+            {isCommentDropdownOpen ? (
+                // Render the comment textbox when the dropdown is open
+                <div style={{zIndex:'100', position: 'fixed', bottom: '0px', left: '0', right: '0'}}>
+                    {/* You can add your textbox and other components here */}
+                    {/* For example, an input field for entering comments */}
+                    <input type="text" placeholder="Enter your comment"
+                           style={{paddingLeft:'18px', fontFamily: 'Helvetica', width:'calc(100% - 22px)', height: '60px',background:'#fff',border:'0px solid #ccc',fontSize:'20px',borderRadius: '11px',boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)'}}
+                    />
+                </div>
+            ) : (
+                // Render your bottom navigation when the dropdown is closed
+                <div style={{ position: 'fixed', bottom: '0', left: '0', right: '0', backgroundColor: '#333' }}>
+                </div>
+            )}
+
+
         </div>
     );
 };

@@ -103,7 +103,7 @@ const App = ({user}) => {
             },
             {
                 "id": 1,
-                "post_id": 1,
+                "post_id": 2,
                 "comment": "Lorem Ipsum Dolorlllllllllllll lllllllllllllllllllllll lllllllll llllllllllllllll lllllllllll lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll",
                 "user_commented": {
                     "id": 2,
