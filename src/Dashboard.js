@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import homeIcon from './homeicon.png';
 import searchIcon from './searchicon.png';
 import postIcon from './posticon.png';
@@ -16,6 +16,7 @@ const Dashboard = ({ user }) => {
     const [selectedConfessionComments, setSelectedConfessionComments] = useState([]);
     const [selectedConfessionId, setSelectedConfessionId] = useState(null);
     const [commentCounts, setCommentCounts] = useState({});
+
     const formatTimeDifference = (confessionDate) => {
         const currentDate = new Date();
         const timeDifference = currentDate - new Date(confessionDate);
@@ -34,6 +35,7 @@ const Dashboard = ({ user }) => {
     useEffect(() => {
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
+
         };
 
         window.addEventListener('resize', handleResize);
@@ -98,8 +100,11 @@ const Dashboard = ({ user }) => {
 
     };
 
+    
+
 
     return (
+
         <div style={{ marginBottom: windowWidth <= 768 ? '60px' : '0' }}>
             {/* Top Bar */}
             <div style={{ height: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '15px' }}>
@@ -151,7 +156,8 @@ const Dashboard = ({ user }) => {
                                 </span>
                             </button>
                             {isCommentDropdownOpen && selectedConfessionComments.length > 0 && (
-                                <div style={{
+                                <div
+                                    style={{
                                     bottom: 50,
                                     overflowY: 'scroll',
                                     position: 'fixed',
@@ -166,7 +172,7 @@ const Dashboard = ({ user }) => {
                                     boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)',
                                 }}>
                                     {selectedConfessionComments.map((comment) => (
-                                        <div style={{
+                                        <div  style={{
                                             padding: '0px 0',
                                             borderBottom: '1px solid #ccc',
                                             display: 'flex',
