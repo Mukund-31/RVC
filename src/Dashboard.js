@@ -158,7 +158,7 @@ const Dashboard = ({ user }) => {
                             {isCommentDropdownOpen && selectedConfessionComments.length > 0 && (
                                 <div
                                     style={{
-                                    bottom: 50,
+                                    bottom: 60,
                                     overflowY: 'scroll',
                                     position: 'fixed',
                                     left: 0,

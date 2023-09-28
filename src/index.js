@@ -104,7 +104,7 @@ const App = ({user}) => {
             {
                 "id": 1,
                 "post_id": 2,
-                "comment": "Lorem Ipsum Dolorlllllllllllll lllllllllllllllllllllll lllllllll llllllllllllllll lllllllllll lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll",
+                "comment": "Lorem Ipsum Dolorlllllllllllll llllllllllllllllllllll lllllllllllllllllllllllllll lllllllllllllllll lllllllllllllllllllllllll lllllllll llllllllllllllll lllllllllll lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll",
                 "user_commented": {
                     "id": 2,
                     "username": "tester_2",
