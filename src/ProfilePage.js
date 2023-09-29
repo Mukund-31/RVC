@@ -15,6 +15,8 @@ import commenticon from "./commenticon.png";
         const [selectedConfessionComments, setSelectedConfessionComments] = useState([]);
         const [selectedConfessionId, setSelectedConfessionId] = useState(null);
         const [commentCounts, setCommentCounts] = useState({});
+        const [showAboutOptions, setShowAboutOptions] = useState(false);
+
         const formatTimeDifference = (confessionDate,mentionDate) => {
             const currentDate = new Date();
             const timeDifference = currentDate - new Date(confessionDate);
@@ -103,6 +105,11 @@ import commenticon from "./commenticon.png";
             setShowDropdown(!showDropdown);
         };
 
+        const handleAboutClick = () => {
+            // Toggle the About options
+            setShowAboutOptions(!showAboutOptions);
+        };
+
         const handleLogout = () => {
             // Implement your logout logic here
             // For example, clear user session, redirect, etc.
@@ -160,13 +167,25 @@ import commenticon from "./commenticon.png";
                     <p style={{fontFamily: 'Helvetica',position:'absolute', top: '-10px'}}>{user.bio}</p>
                 </div>
                 {showDropdown && (
-                    <div style={{position: 'fixed', bottom: -1, left: 0, height:'50%',width: '100%', backgroundColor: 'white',  zIndex: '100',borderTopRightRadius:'20px',borderTopLeftRadius:'20px', border:'0px solid #000',boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)'}}>
+                    <div style={{overflowY:'scroll',position: 'fixed', bottom: -1, left: 0, height:'50%',width: '100%', backgroundColor: 'white',  zIndex: '100',borderTopRightRadius:'20px',borderTopLeftRadius:'20px', border:'0px solid #000',boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)'}}>
                         <ul style={{ listStyle: 'none', padding: '0' }}>
+                            <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'black' }} onClick={handleLogout}>Edit profile</li>
+                            <li style={{ padding: '15px', cursor: 'pointer', fontFamily: 'Helvetica', fontSize: '18px', color: 'black' }} onClick={handleAboutClick}>About</li>
+                            {showAboutOptions && (
+                            <div style={{position: 'relative', top: '0px', left: 0, height:'150px',width: '100%', backgroundColor: 'white',  zIndex: '100',borderRadius:'11px', border:'0px solid #000',boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)'}}>
+                            <ul style={{ listStyle: 'none', padding: '0' }}>
+                                <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'black' }} onClick={handleLogout}>About RVConnect</li>
+                                <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'black' }} onClick={handleLogout}>Terms of Use</li>
+                                <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'black' }} onClick={handleLogout}>Privacy Policy</li>
+                            </ul>
+                            </div>
+                                )}
                             <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'red' }} onClick={handleLogout}>Log out</li>
                             {/* Add other options here */}
                         </ul>
-                    </div>
-                )}
+                            </div>
+                            )}
+
 
                 <div style={{ display: 'flex', marginTop: '20px' , justifyContent: 'space-between',width: '100%', }}>
 
