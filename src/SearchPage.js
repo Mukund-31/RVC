@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
 
-const SearchPage = ({ user,usersData }) => {
+const SearchPage = ({ user,usersData ,switchToUserprofilePage}) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState(usersData);
+
 
     const handleSearch = (query) => {
         // Perform the search logic here
@@ -19,10 +20,6 @@ const SearchPage = ({ user,usersData }) => {
         handleSearch(query);
     };
 
-    const openUserProfilePage = (username) => {
-        if (username === 'tester_1') {
-        }
-    };
 
 
     return (
@@ -34,12 +31,10 @@ const SearchPage = ({ user,usersData }) => {
                 value={searchQuery}
                 onChange={handleInputChange}
                 style={{paddingLeft:'18px', fontFamily: 'Helvetica', width:'calc(100% - 22px)', height: '40px',background:'#efefef',border:'1px solid #ccc',fontSize:'20px',borderRadius: '11px',}}
-                    onClick={() => openUserProfilePage(user.username)}
-
             />
             {searchResults.map((user, index) => (
-                <div key={index} style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #ccc', padding: '0px 0' }}>
-
+                <div key={index} style={{ cursor: 'pointer' ,display: 'flex', alignItems: 'center', borderBottom: '1px solid #ccc', padding: '0px 0' }}
+                     onClick={() => switchToUserprofilePage(user)}>
                     <img src={user.image} style={{ width: '40px', height: '40px', borderRadius: '50%', marginRight: '10px' }} />
                     <div style={{ flex: '1', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>

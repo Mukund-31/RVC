@@ -5,6 +5,7 @@ import ConfessionPage from './ConfessionPage';
  import ProfilePage from './ProfilePage';
 import SearchPage from './SearchPage';
 import LoginPage from './LoginPage';
+import UserprofilePage from './UserprofilePage';
 import homeIcon from './homeicon.png';
 import postIcon from './posticon.png';
 import profileIcon from './profileicon.png';
@@ -15,10 +16,12 @@ import searchIcon from './searchicon.png';
 
 
 const App = ({user}) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated ] = useState(false);
     const [currentPage, setCurrentPage] = useState('dashboard');
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [activeTab, setActiveTab] = useState('confessions');
+    const [selectedUser, setSelectedUser] = useState(null);
+
     const handleLogout = () => {
         // Implement your logout logic here, e.g., clearing user session
         localStorage.removeItem('token');
@@ -29,7 +32,7 @@ const App = ({user}) => {
         name: 'Friend2',
         id:'2',
         username:'tester_2',
-        profileImage: '.profileicon',
+
         branch: 'CSE26',
         bio: 'A passionate blogger and explorer!',
 
@@ -38,7 +41,7 @@ const App = ({user}) => {
             {
                 "id": 1,
                 "mentioned_user": null,
-                "content": "@tester_2 hello mister mmmmmmmmmmmmmmm mmmmmmmmmmmmmmm mmmmmmmmmmmmmmm mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm mmmmmmmmmmmmmmm",
+                "content": "@tester_1 hello mister mmmmmmmmmmmmmmm mmmmmmmmmmmmmmm mmmmmmmmmmmmmmm mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm mmmmmmmmmmmmmmm",
                 "date_posted": "2023-09-18T06:13:47.016000Z",
                 "author": {
                     "id": 1,
@@ -120,16 +123,6 @@ const App = ({user}) => {
         ],
 
 
-            mentioned: [
-                {mentioned_user:'', content: '@abc Hello, @rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-                {mentioned_user:'', content: '@abc Hello, @rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-                {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-                {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-                {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-                {mentioned_user:'', content: '@abc Hello, rvc' + '!', date_posted: "2023-08-06T15:15:57Z",},
-
-            // ... other posts
-        ],
 
         friends: [
             { name: 'Friend1', username:'abc',image: 'C:/Users/Prakhar Jain/OneDrive/Pictures/Harshit.png'},
@@ -178,6 +171,13 @@ const App = ({user}) => {
         setActiveTab(tab);
     };
 
+    const switchToUserprofilePage = (user) => {
+        setCurrentPage('userprofilePage');
+        setSelectedUser(user);
+
+    };
+
+
 
     useEffect(() => {
         const handleResize = () => {
@@ -194,6 +194,7 @@ const App = ({user}) => {
             setIsAuthenticated(true);
         }
     }, []);
+
 
 
 
@@ -216,8 +217,8 @@ const App = ({user}) => {
             {currentPage === 'dashboard' && <Dashboard user={userData}  switchToConfessionPage={switchToConfessionPage} />}
             {currentPage === 'confessionPage' && <ConfessionPage switchToDashboard={switchToDashboard} users={usersData} />}
             {currentPage === 'profilePage' &&<ProfilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} />}
-            {currentPage === 'searchPage' && (<SearchPage usersData={usersData} />)}
-
+            {currentPage === 'searchPage' && (<SearchPage usersData={usersData} switchToUserprofilePage={switchToUserprofilePage}/>)}
+            {currentPage === 'userprofilePage' && selectedUser && (<UserprofilePage user={selectedUser} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} />)}
             </>
             ) : (
                 // Render the login form when the user is not authenticated
