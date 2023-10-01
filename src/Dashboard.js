@@ -7,8 +7,8 @@ import rvclogo from './rvclogo.png';
 import likeicon from './likeicon.png';
 import dislikeicon from './dislikeicon.png';
 import commenticon from './commenticon.png';
-
-const Dashboard = ({ user }) => {
+import postmenuIcon from "./postmenuicon.png";
+const Dashboard = ({ user,setUserData }) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showStickyNote, setShowStickyNote] = useState(true);
     const [likeState, setLikeState] = useState({});
@@ -16,6 +16,19 @@ const Dashboard = ({ user }) => {
     const [selectedConfessionComments, setSelectedConfessionComments] = useState([]);
     const [selectedConfessionId, setSelectedConfessionId] = useState(null);
     const [commentCounts, setCommentCounts] = useState({});
+
+
+
+
+
+
+    const [showpostDropdown, setShowpostDropdown] = useState(false);
+
+
+
+
+
+
 
     const formatTimeDifference = (confessionDate) => {
         const currentDate = new Date();
@@ -100,7 +113,36 @@ const Dashboard = ({ user }) => {
 
     };
 
-    
+
+
+
+
+
+
+
+
+    const handleDeleteConfession = (confessionId) => {
+        // Implement your logic to delete the confession here.
+        // You may need to make an API request to delete the confession from the server.
+        // Once the confession is deleted, update the state to remove it from the user's confessions list.
+        const updatedConfessions = user.confessions.filter((confession) => confession.id !== confessionId);
+        setShowpostDropdown(false);
+        setUserData({
+            ...user,
+            confessions: updatedConfessions,
+        });
+    };
+    const handlepostmenuClick = () => {
+        // Toggle the dropdown menu
+        setShowpostDropdown(!showpostDropdown);
+    };
+
+
+
+
+
+
+
 
 
     return (
@@ -131,14 +173,53 @@ const Dashboard = ({ user }) => {
                         overflowWrap: 'break-word',
                         display: selectedConfessionId === confession.id || !isCommentDropdownOpen ? 'block' : 'none',
                     }}>
+
                         <div style={{ zIndex: '1', fontFamily: 'Helvetica', position: 'relative' }}>
                             <p style={{
                                 position: 'absolute',
-                                top: '-15px',
+                                top: '-13px',
                                 right: '4px',
                                 color: '#000',
                                 fontFamily: 'Helvetica'
-                            }}>{formatTimeDifference(confession.date_posted)}</p>
+                            }}>{formatTimeDifference(confession.date_posted)}
+                            </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            {confession.content.includes(`@${user.username}`) && (
+                                <button onClick={handlepostmenuClick} style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                    <img src={ postmenuIcon}  style={{ position: 'relative', cursor: 'pointer',width: '25px', height: '25px' ,marginRight:'10px'}}  /></button>
+                            )}
+                            {showpostDropdown && (
+                                <div style={{overflowY:'scroll',position: 'fixed', bottom: -1, left: 0, height:'50%',width: '100%', backgroundColor: 'white',  zIndex: '100',borderTopRightRadius:'20px',borderTopLeftRadius:'20px', border:'0px solid #000',boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)'}}>
+                                    <ul style={{ listStyle: 'none', padding: '0' }}>
+                                        <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'#ff4b4b' }}  onClick={() => handleDeleteConfession(confession.id)}><b>Delete</b></li>
+                                    </ul>
+                                </div>
+                            )}
+
+
+
+
+
+
+
+
+
+
+
+
                             <button
                                 onClick={() => handleLikeDislike(confession.id)}
                                 style={{ backgroundColor: 'transparent', border: 'none' }}>
@@ -155,6 +236,9 @@ const Dashboard = ({ user }) => {
                             {formatCommentCount(commentCounts[confession.id] || 0)}
                                 </span>
                             </button>
+
+
+
                             {isCommentDropdownOpen && selectedConfessionComments.length > 0 && (
                                 <div
                                     style={{
@@ -233,8 +317,8 @@ const Dashboard = ({ user }) => {
                           /@(\w+)/g,
                           (match, username) => `<b>@${username}</b>`
                       )
-                  }} />
-                                </p>
+                  }} /></p>
+
                             </div>
                         </div>
                         <div style={{

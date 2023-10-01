@@ -214,7 +214,7 @@ const App = ({user}) => {
             </nav>
             {isAuthenticated ? (
             <>
-            {currentPage === 'dashboard' && <Dashboard user={userData}  switchToConfessionPage={switchToConfessionPage} />}
+            {currentPage === 'dashboard' && <Dashboard user={userData} setUserData={setUserData} switchToConfessionPage={switchToConfessionPage} />}
             {currentPage === 'confessionPage' && <ConfessionPage switchToDashboard={switchToDashboard} users={usersData} />}
             {currentPage === 'profilePage' &&<ProfilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} />}
             {currentPage === 'searchPage' && (<SearchPage usersData={usersData} switchToUserprofilePage={switchToUserprofilePage} />)}
