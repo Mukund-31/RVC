@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import userprofilePage from "./UserprofilePage";
 
 
 const SearchPage = ({ user,usersData ,switchToUserprofilePage}) => {
@@ -34,7 +35,7 @@ const SearchPage = ({ user,usersData ,switchToUserprofilePage}) => {
             />
             {searchResults.map((user, index) => (
                 <div key={index} style={{ cursor: 'pointer' ,display: 'flex', alignItems: 'center', borderBottom: '1px solid #ccc', padding: '0px 0' }}
-                     onClick={() => switchToUserprofilePage(user)}>
+                     onClick={() => switchToUserprofilePage(user)} >
                     <img src={user.image} style={{ width: '40px', height: '40px', borderRadius: '50%', marginRight: '10px' }} />
                     <div style={{ flex: '1', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>

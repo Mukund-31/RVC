@@ -20,7 +20,7 @@ const App = ({user}) => {
     const [currentPage, setCurrentPage] = useState('dashboard');
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [activeTab, setActiveTab] = useState('confessions');
-    const [selectedUser, setSelectedUser] = useState(null);
+
 
     const handleLogout = () => {
         // Implement your logout logic here, e.g., clearing user session
@@ -164,6 +164,10 @@ const App = ({user}) => {
         setCurrentPage('searchPage');
 
     };
+    const switchToUserprofilePage = () => {
+        setCurrentPage('userprofilePage');
+
+    };
 
 
 
@@ -171,11 +175,7 @@ const App = ({user}) => {
         setActiveTab(tab);
     };
 
-    const switchToUserprofilePage = (user) => {
-        setCurrentPage('userprofilePage');
-        setSelectedUser(user);
 
-    };
 
 
 
@@ -217,8 +217,8 @@ const App = ({user}) => {
             {currentPage === 'dashboard' && <Dashboard user={userData}  switchToConfessionPage={switchToConfessionPage} />}
             {currentPage === 'confessionPage' && <ConfessionPage switchToDashboard={switchToDashboard} users={usersData} />}
             {currentPage === 'profilePage' &&<ProfilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} />}
-            {currentPage === 'searchPage' && (<SearchPage usersData={usersData} switchToUserprofilePage={switchToUserprofilePage}/>)}
-            {currentPage === 'userprofilePage' && selectedUser && (<UserprofilePage user={selectedUser} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} />)}
+            {currentPage === 'searchPage' && (<SearchPage usersData={usersData} switchToUserprofilePage={switchToUserprofilePage} />)}
+                {currentPage === 'userprofilePage' &&<UserprofilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} switchToSearchPage={switchToSearchPage} />}
             </>
             ) : (
                 // Render the login form when the user is not authenticated
