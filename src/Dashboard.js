@@ -16,20 +16,8 @@ const Dashboard = ({ user,setUserData }) => {
     const [selectedConfessionComments, setSelectedConfessionComments] = useState([]);
     const [selectedConfessionId, setSelectedConfessionId] = useState(null);
     const [commentCounts, setCommentCounts] = useState({});
-
-
-
-
-
-
     const [showpostDropdown, setShowpostDropdown] = useState(false);
-
-
-
-
-
-
-
+    const dropdownRef = useRef(null);
     const formatTimeDifference = (confessionDate) => {
         const currentDate = new Date();
         const timeDifference = currentDate - new Date(confessionDate);
@@ -63,6 +51,7 @@ const Dashboard = ({ user,setUserData }) => {
             window.removeEventListener('resize', handleResize);
             window.removeEventListener('scroll', handleScroll);
         };
+
     }, []);
 
     const getStickyNoteColor = (index) => {
@@ -112,15 +101,6 @@ const Dashboard = ({ user,setUserData }) => {
         }
 
     };
-
-
-
-
-
-
-
-
-
     const handleDeleteConfession = (confessionId) => {
         // Implement your logic to delete the confession here.
         // You may need to make an API request to delete the confession from the server.
@@ -137,13 +117,24 @@ const Dashboard = ({ user,setUserData }) => {
         setShowpostDropdown(!showpostDropdown);
     };
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (showpostDropdown && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowpostDropdown(false);
 
+            }
+        };
 
+        if (showpostDropdown) {
+            document.addEventListener('click', handleClickOutside);
+        } else {
+            document.removeEventListener('click', handleClickOutside);
+        }
 
-
-
-
-
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [showpostDropdown]);
 
     return (
 
@@ -184,41 +175,18 @@ const Dashboard = ({ user,setUserData }) => {
                             }}>{formatTimeDifference(confession.date_posted)}
                             </p>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
                             {confession.content.includes(`@${user.username}`) && (
                                 <button onClick={handlepostmenuClick} style={{ backgroundColor: 'transparent', border: 'none' }}>
                                     <img src={ postmenuIcon}  style={{ position: 'relative', cursor: 'pointer',width: '25px', height: '25px' ,marginRight:'10px'}}  /></button>
                             )}
                             {showpostDropdown && (
-                                <div style={{overflowY:'scroll',position: 'fixed', bottom: -1, left: 0, height:'50%',width: '100%', backgroundColor: 'white',  zIndex: '100',borderTopRightRadius:'20px',borderTopLeftRadius:'20px', border:'0px solid #000',boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)'}}>
+                                <div  ref={dropdownRef}
+                                      style={{overflowY:'scroll',position: 'fixed', bottom: -1, left: 0, height:'50%',width: '100%', backgroundColor: 'white',  zIndex: '100',borderTopRightRadius:'20px',borderTopLeftRadius:'20px', border:'0px solid #000',boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)'}}>
                                     <ul style={{ listStyle: 'none', padding: '0' }}>
                                         <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'#ff4b4b' }}  onClick={() => handleDeleteConfession(confession.id)}><b>Delete</b></li>
                                     </ul>
                                 </div>
                             )}
-
-
-
-
-
-
-
-
-
-
-
 
                             <button
                                 onClick={() => handleLikeDislike(confession.id)}
