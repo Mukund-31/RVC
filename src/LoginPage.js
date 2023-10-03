@@ -5,8 +5,8 @@ import CrossIcon from "./cross.png";
 function LoginPage({user, setIsAuthenticated }) {
     const [showuserinfoForm, setShowuserinfoForm] = useState(false);
     const [profilePic, setProfilePic] = useState();
-    const [newName, setNewName] = useState();
-    const [newBio, setNewBio] = useState()
+    const [Branch, setBranch] = useState();
+    const [Bio, setBio] = useState()
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -163,11 +163,11 @@ function LoginPage({user, setIsAuthenticated }) {
     };
 
     const handleNameChange = (e) => {
-        setNewName(e.target.value);
+        setBranch(e.target.value);
     };
 
     const handleBioChange = (e) => {
-        setNewBio(e.target.value);
+        setBio(e.target.value);
     };
 
     const handleUserInfoSubmit = (e) => {
@@ -411,8 +411,8 @@ function LoginPage({user, setIsAuthenticated }) {
                     </label>
                     <input
                         type="text"
-                        placeholder="Name"
-                        value={newName}
+                        placeholder="Branch"
+                        value={Branch}
                         onChange={handleNameChange}
                         style={{boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
                             marginBottom: '15px',
@@ -432,7 +432,7 @@ function LoginPage({user, setIsAuthenticated }) {
                     />
                     <textarea
                         placeholder="Bio"
-                        value={newBio}
+                        value={Bio}
                         onChange={handleBioChange}
                         style={{boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
                             marginBottom: '15px',
