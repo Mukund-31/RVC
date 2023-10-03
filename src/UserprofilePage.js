@@ -17,6 +17,7 @@ const UserprofilePage = ({user ,activeTab='mentioned', handleTabClick,setUserDat
     const [commentCounts, setCommentCounts] = useState({});
     const [selectedUser, setSelectedUser] = useState(null);
     const [showUserProfile, setShowUserProfile] = useState(false);
+    const [friendshipStatus, setFriendshipStatus] = useState('Friends');
 
     const handleUserClick = (user) => {
         setSelectedUser(user);
@@ -146,6 +147,21 @@ const UserprofilePage = ({user ,activeTab='mentioned', handleTabClick,setUserDat
     };
 
 
+    const handleFriendButtonClick = () => {
+        if (friendshipStatus === 'Friends') {
+            // Send a friend request here (you can implement this logic)
+            setFriendshipStatus('Request Sent');
+        } else if (friendshipStatus === 'Request Sent') {
+            // Cancel the friend request here (you can implement this logic)
+            setFriendshipStatus('Friends');
+        } else if (friendshipStatus === 'Unfriend') {
+            // Unfriend logic here (you can implement this logic)
+            setFriendshipStatus('Friends');
+        }
+    };
+
+
+
 
     return (
 
@@ -158,7 +174,8 @@ const UserprofilePage = ({user ,activeTab='mentioned', handleTabClick,setUserDat
                 <br/>
                 <p style={{fontFamily: 'Helvetica',position:'absolute', top: '-35px'}}>{user.branch}</p>
                 <p style={{fontFamily: 'Helvetica',position:'absolute', top: '-10px'}}>{user.bio}</p>
-                <button style={{ fontFamily: 'Helvetica', backgroundColor: '#000',color:'white', border: '1.2px solid #ccc', borderRadius: '10px', fontSize: '17px',marginTop: '25px',height:'35px',width:'100%'}}><b>Friend</b></button>
+                <button style={{ fontFamily: 'Helvetica', backgroundColor: '#000',color:'white', border: '1.2px solid #ccc', borderRadius: '10px', fontSize: '17px',marginTop: '25px',height:'35px',width:'100%'}}onClick={() => handleFriendButtonClick()}><b>{friendshipStatus}</b></button>
+
 
                     </div>
 
