@@ -5,6 +5,7 @@ import ConfessionPage from './ConfessionPage';
  import ProfilePage from './ProfilePage';
 import SearchPage from './SearchPage';
 import LoginPage from './LoginPage';
+import AboutPage from './AboutPage';
 import UserprofilePage from './UserprofilePage';
 import homeIcon from './homeicon.png';
 import postIcon from './posticon.png';
@@ -13,13 +14,12 @@ import searchIcon from './searchicon.png';
 
 
 
-
-
 const App = ({user}) => {
     const [isAuthenticated, setIsAuthenticated ] = useState(false);
     const [currentPage, setCurrentPage] = useState('dashboard');
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [activeTab, setActiveTab] = useState('confessions');
+
 
 
     const handleLogout = () => {
@@ -44,8 +44,8 @@ const App = ({user}) => {
                 "content": "@tester_1 hello mister mmmmmmmmmmmmmmm mmmmmmmmmmmmmmm mmmmmmmmmmmmmmm mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm mmmmmmmmmmmmmmm",
                 "date_posted": "2023-09-18T06:13:47.016000Z",
                 "author": {
-                    "id": 1,
-                    "username": "tester_1",
+                    "id": 2,
+                    "username": "tester_2",
                     "email": "",
                     "first_name": "",
                     "last_name": "",
@@ -168,8 +168,9 @@ const App = ({user}) => {
         setCurrentPage('userprofilePage');
 
     };
-
-
+    const switchToAboutPage = () => {
+        setCurrentPage('aboutPage');
+    };
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);
@@ -192,16 +193,16 @@ const App = ({user}) => {
         const token = localStorage.getItem('token');
         if (token) {
             setIsAuthenticated(true);
+
         }
     }, []);
-
 
 
 
     return (
         <div>
             <nav>
-                {isAuthenticated && windowWidth <= 768 && (
+                {isAuthenticated && windowWidth <= 768  && currentPage !== 'aboutPage' &&  (
                     <div style={{ height:'70px',borderRadius:'11px', display: 'flex', justifyContent: 'space-around', fontSize: '33px', border: '0px solid #808080', marginBottom:'-1px', padding: '13px', position: 'fixed', bottom: '-10px', left: '0', right: '0', backgroundColor: '#ffffff', zIndex: '100', width: '100%', boxSizing: 'border-box', boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)', }}>
                         <img src={homeIcon} onClick={switchToDashboard} style={{borderRadius:'50%', width: '31px', height: '31px' ,transform: currentPage === 'dashboard' ? 'scale(1.3)' : 'scale(1)', }} />
                         <img src={searchIcon} onClick={switchToSearchPage} style={{borderRadius:'50%', width: '31px', height: '31px' ,transform: currentPage === 'searchPage' ? 'scale(1.3)' : 'scale(1)', }} />
@@ -216,14 +217,19 @@ const App = ({user}) => {
             <>
             {currentPage === 'dashboard' && <Dashboard user={userData} setUserData={setUserData} switchToConfessionPage={switchToConfessionPage} />}
             {currentPage === 'confessionPage' && <ConfessionPage switchToDashboard={switchToDashboard} users={usersData} />}
-            {currentPage === 'profilePage' &&<ProfilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} />}
+            {currentPage === 'profilePage' &&<ProfilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} switchToAboutPage={switchToAboutPage}  />}
             {currentPage === 'searchPage' && (<SearchPage usersData={usersData} switchToUserprofilePage={switchToUserprofilePage} />)}
                 {currentPage === 'userprofilePage' &&<UserprofilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} switchToSearchPage={switchToSearchPage} />}
+                {currentPage === 'aboutPage' && <AboutPage />}
+
             </>
             ) : (
+
                 // Render the login form when the user is not authenticated
                 <LoginPage setIsAuthenticated={setIsAuthenticated} />
+
             )}
+
         </div>
     );
 };

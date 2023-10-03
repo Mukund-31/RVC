@@ -6,8 +6,6 @@ const ConfessionPage = ({ switchToDashboard, users }) => {
     const [mentionedUsers, setMentionedUsers] = useState([]);
     const [suggestedMentionedUsers, setSuggestedMentionedUsers] = useState([]);
     const [selectedStickyNoteColorIndex, setSelectedStickyNoteColorIndex] = useState(0);
-
-
     const [showStickyNote, setShowStickyNote] = useState(true);
     const handleConfessionSubmit = () => {
         if (newConfessionContent.trim() === '') {

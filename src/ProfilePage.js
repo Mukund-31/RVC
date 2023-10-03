@@ -6,7 +6,7 @@ import commenticon from "./commenticon.png";
 import CrossIcon from './cross.png';
 import postmenuIcon from "./postmenuicon.png";
 
-    const ProfilePage = ({user ,activeTab='confessions', handleTabClick,setUserData,usersData}) => {
+    const ProfilePage = ({user ,activeTab='confessions', handleTabClick,setUserData,usersData,switchToAboutPage}) => {
         const [windowWidth, setWindowWidth] = useState(window.innerWidth);
         const [showStickyNote, setShowStickyNote] = useState(true);
         const [searchQuery, setSearchQuery] = useState('');
@@ -18,7 +18,8 @@ import postmenuIcon from "./postmenuicon.png";
         const [selectedConfessionId, setSelectedConfessionId] = useState(null);
         const [commentCounts, setCommentCounts] = useState({});
         const [showAboutOptions, setShowAboutOptions] = useState(false);
-        const [showEditProfileForm, setShowEditProfileForm] = useState(false);        const [profilePic, setProfilePic] = useState(null);
+        const [showEditProfileForm, setShowEditProfileForm] = useState(false);
+        const [profilePic, setProfilePic] = useState(null);
         const [newName, setNewName] = useState(user.name);
         const [newBio, setNewBio] = useState(user.bio)
         const [showpostDropdown, setShowpostDropdown] = useState(false);
@@ -324,7 +325,7 @@ import postmenuIcon from "./postmenuicon.png";
                             {showAboutOptions && (
                             <div style={{position: 'relative', top: '0px', left: 0, height:'150px',width: '100%', backgroundColor: 'white',  zIndex: '100',borderRadius:'11px', border:'0px solid #000',boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)'}}>
                             <ul style={{ listStyle: 'none', padding: '0' }}>
-                                <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'black' }} onClick={handleLogout}>About RVConnect</li>
+                                <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'black' }}  onClick= {switchToAboutPage}>About RVConnect</li>
                                 <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'black' }} onClick={handleLogout}>Terms of Use</li>
                                 <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'black' }} onClick={handleLogout}>Privacy Policy</li>
                             </ul>
@@ -606,6 +607,18 @@ import postmenuIcon from "./postmenuicon.png";
                                             color: '#000',
                                             fontFamily: 'Helvetica'
                                         }}>{formatTimeDifference(confession.date_posted)}</p>
+                                        {confession.content.includes(`@${user.username}`) && (
+                                            <button onClick={handlepostmenuClick} style={{ backgroundColor: 'transparent', border: 'none' }}>
+                                                <img src={ postmenuIcon}  style={{ position: 'relative', cursor: 'pointer',width: '25px', height: '25px' ,marginRight:'10px'}}  /></button>
+                                        )}
+                                        {showpostDropdown && (
+                                            <div  ref={dropdownRef}
+                                                  style={{overflowY:'scroll',position: 'fixed', bottom: -1, left: 0, height:'50%',width: '100%', backgroundColor: 'white',  zIndex: '100',borderTopRightRadius:'20px',borderTopLeftRadius:'20px', border:'0px solid #000',boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)'}}>
+                                                <ul style={{ listStyle: 'none', padding: '0' }}>
+                                                    <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'#ff4b4b' }}  onClick={() => handleDeleteConfession(confession.id)}><b>Delete</b></li>
+                                                </ul>
+                                            </div>
+                                        )}
                                         <button
                                             onClick={() => handleLikeDislike(confession.id)}
                                             style={{backgroundColor: 'transparent', border: 'none',}}
