@@ -6,7 +6,7 @@ import commenticon from "./commenticon.png";
 import CrossIcon from './cross.png';
 import postmenuIcon from "./postmenuicon.png";
 
-    const ProfilePage = ({user ,activeTab='confessions', handleTabClick,setUserData,usersData,switchToAboutPage}) => {
+    const ProfilePage = ({user ,activeTab='confessions', handleTabClick,setUserData,usersData,switchToAboutPage,switchToUserprofilePage }) => {
         const [windowWidth, setWindowWidth] = useState(window.innerWidth);
         const [showStickyNote, setShowStickyNote] = useState(true);
         const [searchQuery, setSearchQuery] = useState('');
@@ -21,6 +21,7 @@ import postmenuIcon from "./postmenuicon.png";
         const [showEditProfileForm, setShowEditProfileForm] = useState(false);
         const [profilePic, setProfilePic] = useState(null);
         const [newName, setNewName] = useState(user.name);
+        const [newBranch, setNewBranch] = useState(user.branch);
         const [newBio, setNewBio] = useState(user.bio)
         const [showpostDropdown, setShowpostDropdown] = useState(false);
         const dropdownRef = useRef(null);
@@ -177,6 +178,9 @@ import postmenuIcon from "./postmenuicon.png";
         const handleNameChange = (e) => {
             setNewName(e.target.value);
         };
+        const handleBranchChange = (e) => {
+            setNewBranch(e.target.value);
+        };
 
         const handleBioChange = (e) => {
             setNewBio(e.target.value);
@@ -268,7 +272,7 @@ import postmenuIcon from "./postmenuicon.png";
                                                 borderRadius: '50%',
                                                 position:'absolute',
                                                 left: '50%',
-                                                top: '15%',
+                                                top: '16%',
                                                 transform: 'translate(-50%, -50%)'
                                             }}
                                         />
@@ -280,9 +284,30 @@ import postmenuIcon from "./postmenuicon.png";
                                         onChange={handleNameChange}
                                         style={{boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
                                             marginBottom: '15px',
-                                            position:'absolute',
+                                            position:'relative',
                                             left: '50%',
-                                            top: '30%',
+                                            top: '37%',
+                                            transform: 'translate(-50%, -50%)',
+                                            paddingLeft: '18px',
+                                            fontFamily: 'Helvetica',
+                                            width: 'calc(90% - 25px)',
+                                            height: '40px',
+                                            background: 'rgba(255, 255, 255, 0.5)',
+                                            border: '1px solid #ccc',
+                                            fontSize: '18px',
+                                            zIndex: '1',
+                                            borderRadius: '11px',}}
+                                    />
+                                    <input
+                                        type="text"
+                                        placeholder="Branch"
+                                        value={newBranch}
+                                        onChange={handleBranchChange}
+                                        style={{boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+                                            marginBottom: '15px',
+                                            position:'relative',
+                                            left: '50%',
+                                            top: '38%',
                                             transform: 'translate(-50%, -50%)',
                                             paddingLeft: '18px',
                                             fontFamily: 'Helvetica',
@@ -301,9 +326,9 @@ import postmenuIcon from "./postmenuicon.png";
                                         style={{boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
                                             marginBottom: '15px',
                                             paddingLeft: '18px',
-                                            position:'absolute',
+                                            position:'relative',
                                             left: '50%',
-                                            top: '41%',
+                                            top: '45%',
                                             transform: 'translate(-50%, -50%)',
                                             fontFamily: 'Helvetica',
                                             width: 'calc(90% - 25px)',
@@ -316,16 +341,17 @@ import postmenuIcon from "./postmenuicon.png";
                                     />
                                     {/* Include the code to submit the updated profile information */}
                                     <button type="submit"
-                                            style={{  position:'absolute', left: '50%', top: '52%',
+                                            style={{  position:'relative', left: '50%', top: '45%',
                                                 transform: 'translate(-50%, -50%)',boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',color:'#fff', fontFamily: 'Helvetica', width: '100px', height: '40px',background:'#000',border:'1px solid #ccc',fontSize:'18px',borderRadius: '11px',}}
                                     >Save</button>
                                 </form>
                             )}
                             <li style={{ padding: '15px', cursor: 'pointer', fontFamily: 'Helvetica', fontSize: '18px', color: 'black' }} onClick={handleAboutClick}>About</li>
                             {showAboutOptions && (
-                            <div style={{position: 'relative', top: '0px', left: 0, height:'150px',width: '100%', backgroundColor: 'white',  zIndex: '100',borderRadius:'11px', border:'0px solid #000',boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)'}}>
+                            <div style={{overflowY:'scroll',position: 'relative', top: '0px', left: 0, height:'200px',width: '100%', backgroundColor: 'white',  zIndex: '100',borderRadius:'11px', border:'0px solid #000',boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)'}}>
                             <ul style={{ listStyle: 'none', padding: '0' }}>
                                 <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'black' }}  onClick= {switchToAboutPage}>About RVConnect</li>
+                                <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'black' }} onClick={handleLogout}>Guildlines</li>
                                 <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'black' }} onClick={handleLogout}>Terms of Use</li>
                                 <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'black' }} onClick={handleLogout}>Privacy Policy</li>
                             </ul>
@@ -789,9 +815,12 @@ import postmenuIcon from "./postmenuicon.png";
                             value={searchQuery}
                             onChange={handleInputChange}
                             style={{paddingLeft:'18px', fontFamily: 'Helvetica', width:'calc(100% - 22px)', height: '40px',background:'#efefef',border:'1px solid #ccc',fontSize:'20px',borderRadius: '11px',}}
-
                         />
-                        {filteredFriends.map((friend, index) => (
+                        {filteredFriends.length === 0 ? (
+                            <div style={{ fontFamily: 'Helvetica', fontSize: '20px', marginTop: '20px' }}>
+                                No friends found. Try searching on the search page!                            </div>
+                        ) : (
+                        filteredFriends.map((friend, index) => (
                             <div key={index} style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #ccc', padding: '0px 0' }}>
                                 <img src={friend.image} style={{ width: '40px', height: '40px', borderRadius: '50%', marginRight: '10px' }} />
                                 <div style={{ flex: '1', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -802,8 +831,10 @@ import postmenuIcon from "./postmenuicon.png";
                                     <button style={{ fontFamily: 'Helvetica', backgroundColor: 'white', padding: '6px 10px', border: '1.2px solid #ccc', borderRadius: '10px', fontSize: '17px' }} onClick={() => handleUnfriend(friend.name)}><b>Unfriend</b></button>
                                 </div>
                             </div>
-                        ))}
+                        ))
+                            )}
                     </div>
+
                     </>
                 )}
                 {/*{activeTab === 'clubs' && (*/}

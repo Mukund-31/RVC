@@ -404,7 +404,7 @@ function LoginPage({user, setIsAuthenticated }) {
                                 borderRadius: '50%',
                                 position:'absolute',
                                 left: '50%',
-                                top: '15%',
+                                top: '16%',
                                 transform: 'translate(-50%, -50%)'
                             }}
                         />
@@ -416,9 +416,9 @@ function LoginPage({user, setIsAuthenticated }) {
                         onChange={handleNameChange}
                         style={{boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
                             marginBottom: '15px',
-                            position:'absolute',
+                            position:'relative',
                             left: '50%',
-                            top: '30%',
+                            top: '38%',
                             transform: 'translate(-50%, -50%)',
                             paddingLeft: '18px',
                             fontFamily: 'Helvetica',
@@ -437,9 +437,9 @@ function LoginPage({user, setIsAuthenticated }) {
                         style={{boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
                             marginBottom: '15px',
                             paddingLeft: '18px',
-                            position:'absolute',
+                            position:'relative',
                             left: '50%',
-                            top: '41%',
+                            top: '45%',
                             transform: 'translate(-50%, -50%)',
                             fontFamily: 'Helvetica',
                             width: 'calc(90% - 25px)',
@@ -452,7 +452,7 @@ function LoginPage({user, setIsAuthenticated }) {
                     />
                     {/* Include the code to submit the updated profile information */}
                     <button type="submit"
-                            style={{  position:'absolute', left: '50%', top: '52%',
+                            style={{  position:'relative', left: '50%', top: '40%',
                                 transform: 'translate(-50%, -50%)',boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',color:'#fff', fontFamily: 'Helvetica', width: '100px', height: '40px',background:'#000',border:'1px solid #ccc',fontSize:'18px',borderRadius: '11px',}}
                             >Submit</button>
                 </form>
