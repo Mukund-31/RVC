@@ -11,6 +11,9 @@ import homeIcon from './homeicon.png';
 import postIcon from './posticon.png';
 import profileIcon from './profileicon.png';
 import searchIcon from './searchicon.png';
+import notificationIcon from './notificationicon.png';
+import NotificationPage from "./NotificationPage";
+
 
 
 
@@ -19,7 +22,7 @@ const App = ({user}) => {
     const [currentPage, setCurrentPage] = useState('dashboard');
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [activeTab, setActiveTab] = useState('confessions');
-
+    const [mentionedConfessionId, setMentionedConfessionId] = useState(null);
 
 
     const handleLogout = () => {
@@ -149,6 +152,9 @@ const App = ({user}) => {
         setCurrentPage('confessionPage');
 
     };
+    const switchToNotificationPage = () => {
+        setCurrentPage('notificationPage');
+    };
 
     const switchToDashboard = () => {
         setCurrentPage('dashboard');
@@ -198,6 +204,33 @@ const App = ({user}) => {
     }, []);
 
 
+    const [notifications, setNotifications] = useState([]); // State to hold notifications
+
+    // Function to check for mentions and add notifications
+    const checkMentions = () => {
+        const mentions = userData.confessions.filter((confession) =>
+            confession.content.includes(`@${userData.username}`)
+        );
+
+        const newNotifications = mentions.map((mention) => ({
+            text: 'Someone has mentioned you in a confession',
+            time: mention.date_posted,
+        }));
+
+        setNotifications(newNotifications);
+    };
+
+    // Check for mentions when user data changes
+    useEffect(() => {
+        checkMentions();
+    }, [userData]);
+
+    const openMentionedConfession = (mentionedConfessionId) => {
+        setCurrentPage('profilePage');
+        setActiveTab('mentioned');
+        setMentionedConfessionId(mentionedConfessionId);
+    };
+
 
     return (
         <div>
@@ -207,6 +240,7 @@ const App = ({user}) => {
                         <img src={homeIcon} onClick={switchToDashboard} style={{borderRadius:'50%', width: '31px', height: '31px' ,transform: currentPage === 'dashboard' ? 'scale(1.3)' : 'scale(1)', }} />
                         <img src={searchIcon} onClick={switchToSearchPage} style={{borderRadius:'50%', width: '31px', height: '31px' ,transform: currentPage === 'searchPage' ? 'scale(1.3)' : 'scale(1)', }} />
                         <img src={postIcon} onClick={switchToConfessionPage} style={{ borderRadius:'30%', width: '31px', height: '31px' ,transform: currentPage === 'confessionPage' ? 'scale(1.3)' : 'scale(1)', }} />
+                        <img src={notificationIcon} onClick={switchToNotificationPage} style={{ borderRadius:'30%', width: '31px', height: '31px' ,transform: currentPage === 'notificationPage' ? 'scale(1.3)' : 'scale(1)', }} />
                         <img src={profileIcon} onClick={switchToProfilePage} style={{ borderRadius:'50%', width: '31px', height: '31px' ,transform: currentPage === 'profilePage' ? 'scale(1.3)' : 'scale(1)', }} />
 
                     </div>
@@ -217,10 +251,12 @@ const App = ({user}) => {
             <>
             {currentPage === 'dashboard' && <Dashboard user={userData} setUserData={setUserData} switchToConfessionPage={switchToConfessionPage} />}
             {currentPage === 'confessionPage' && <ConfessionPage switchToDashboard={switchToDashboard} users={usersData} />}
-            {currentPage === 'profilePage' &&<ProfilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} switchToAboutPage={switchToAboutPage}  />}
+            {currentPage === 'profilePage' &&<ProfilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} switchToAboutPage={switchToAboutPage}  mentionedConfessionId={mentionedConfessionId}  />}
             {currentPage === 'searchPage' && (<SearchPage usersData={usersData} switchToUserprofilePage={switchToUserprofilePage} />)}
                 {currentPage === 'userprofilePage' &&<UserprofilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} switchToSearchPage={switchToSearchPage} />}
                 {currentPage === 'aboutPage' && <AboutPage />}
+                {currentPage === 'notificationPage' && <NotificationPage notifications={notifications} switchToProfilePage={switchToProfilePage} openMentionedConfession={openMentionedConfession}/>}
+
 
             </>
             ) : (

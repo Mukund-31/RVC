@@ -6,7 +6,7 @@ import commenticon from "./commenticon.png";
 import CrossIcon from './cross.png';
 import postmenuIcon from "./postmenuicon.png";
 
-    const ProfilePage = ({user ,activeTab='confessions', handleTabClick,setUserData,usersData,switchToAboutPage,switchToUserprofilePage }) => {
+    const ProfilePage = ({ mentionedConfessionId,user ,activeTab='confessions', handleTabClick,setUserData,usersData,switchToAboutPage,switchToUserprofilePage }) => {
         const [windowWidth, setWindowWidth] = useState(window.innerWidth);
         const [showStickyNote, setShowStickyNote] = useState(true);
         const [searchQuery, setSearchQuery] = useState('');
@@ -225,6 +225,9 @@ import postmenuIcon from "./postmenuicon.png";
 
 
 
+
+
+
         return (
 
             <div style={{ marginBottom: windowWidth <= 768 ? '60px' : '0' }}>
@@ -394,7 +397,12 @@ import postmenuIcon from "./postmenuicon.png";
                     >
                         <b>Mentions</b>
                     </div>
-
+                    {activeTab === 'mentioned' && mentionedConfessionId && (
+                        // Fetch and display the mentioned confession content using mentionedConfessionId
+                        <div>
+                            {/* Fetch and display mentioned confession content using mentionedConfessionId */}
+                        </div>
+                    )}
                     <div
                         className={`tab ${activeTab === 'friends' ? 'active' : ''}`}
                         onClick={() => handleTabClick('friends')}
