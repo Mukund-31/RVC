@@ -92,15 +92,7 @@ function LoginPage({user, setIsAuthenticated }) {
         }
     };
 
-    useEffect(() => {
-        // Disable scrolling when the component mounts
-        document.body.style.overflow = 'hidden';
 
-        // Re-enable scrolling when the component unmounts
-        return () => {
-            document.body.style.overflow = 'visible'; // or 'auto' if you want to enable scrolling
-        };
-    }, []);
 
     const handleSignupSubmit = async (e) => {
         e.preventDefault();
