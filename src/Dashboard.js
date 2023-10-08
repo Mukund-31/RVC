@@ -18,6 +18,8 @@ const Dashboard = ({ user,setUserData }) => {
     const [commentCounts, setCommentCounts] = useState({});
     const [showpostDropdown, setShowpostDropdown] = useState(false);
     const dropdownRef = useRef(null);
+    const commentDropdownRef = useRef(null);
+
     const formatTimeDifference = (confessionDate) => {
         const currentDate = new Date();
         const timeDifference = currentDate - new Date(confessionDate);
@@ -136,6 +138,27 @@ const Dashboard = ({ user,setUserData }) => {
         };
     }, [showpostDropdown]);
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (isCommentDropdownOpen && commentDropdownRef.current && !commentDropdownRef.current.contains(event.target)) {
+                // Click occurred outside the comment dropdown
+                setCommentDropdownOpen(false);
+                setSelectedConfessionComments([]);
+                setSelectedConfessionId(null);
+            }
+        };
+
+        if (isCommentDropdownOpen) {
+            document.addEventListener('click', handleClickOutside);
+        } else {
+            document.removeEventListener('click', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [isCommentDropdownOpen]);
+
     return (
 
         <div style={{ marginBottom: windowWidth <= 768 ? '60px' : '0' }}>
@@ -209,6 +232,7 @@ const Dashboard = ({ user,setUserData }) => {
 
                             {isCommentDropdownOpen && selectedConfessionComments.length > 0 && (
                                 <div
+                                    ref={commentDropdownRef}
                                     style={{
                                     bottom: 60,
                                     overflowY: 'scroll',
@@ -313,7 +337,7 @@ const Dashboard = ({ user,setUserData }) => {
             {/* Bottom Navigation */}
             {isCommentDropdownOpen ? (
 
-                <div style={{zIndex:'100', position: 'fixed', bottom: '10px', left: '0px', right: '0px',}}>
+                <div ref={commentDropdownRef} style={{zIndex:'100', position: 'fixed', bottom: '10px', left: '0px', right: '0px',}}>
                     <div style={{background:'#fff', boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)',borderRadius:'11px', height:'155px',zIndex:'100' ,width:'100%',position:'relative',top:'70px' }}>
 
                     {/* You can add your textbox and other components here */}

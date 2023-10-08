@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import menuIcon from './menuicon.png';
 import likeicon from "./likeicon.png";
 import dislikeicon from "./dislikeicon.png";
@@ -18,6 +18,7 @@ const UserprofilePage = ({user ,activeTab='mentioned', handleTabClick,setUserDat
     const [selectedUser, setSelectedUser] = useState(null);
     const [showUserProfile, setShowUserProfile] = useState(false);
     const [friendshipStatus, setFriendshipStatus] = useState('Friends');
+    const commentDropdownRef = useRef(null);
 
     const handleUserClick = (user) => {
         setSelectedUser(user);
@@ -160,7 +161,26 @@ const UserprofilePage = ({user ,activeTab='mentioned', handleTabClick,setUserDat
         }
     };
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (isCommentDropdownOpen && commentDropdownRef.current && !commentDropdownRef.current.contains(event.target)) {
+                // Click occurred outside the comment dropdown
+                setCommentDropdownOpen(false);
+                setSelectedConfessionComments([]);
+                setSelectedConfessionId(null);
+            }
+        };
 
+        if (isCommentDropdownOpen) {
+            document.addEventListener('click', handleClickOutside);
+        } else {
+            document.removeEventListener('click', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [isCommentDropdownOpen]);
 
 
     return (
@@ -272,6 +292,7 @@ const UserprofilePage = ({user ,activeTab='mentioned', handleTabClick,setUserDat
 
                                         {isCommentDropdownOpen && selectedConfessionComments.length > 0 && (
                                             <div
+                                                ref={commentDropdownRef}
                                                 style={{
                                                     bottom: 60,
                                                     overflowY: 'scroll',
@@ -385,7 +406,7 @@ const UserprofilePage = ({user ,activeTab='mentioned', handleTabClick,setUserDat
             {/* Bottom Navigation */}
             {isCommentDropdownOpen ? (
 
-                <div style={{zIndex:'100', position: 'fixed', bottom: '10px', left: '0px', right: '0px',}}>
+                <div ref={commentDropdownRef} style={{zIndex:'100', position: 'fixed', bottom: '10px', left: '0px', right: '0px',}}>
                     <div style={{background:'#fff', boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)',borderRadius:'11px', height:'155px',zIndex:'100' ,width:'100%',position:'relative',top:'70px' }}>
 
                         {/* You can add your textbox and other components here */}
