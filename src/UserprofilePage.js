@@ -182,6 +182,28 @@ const UserprofilePage = ({user ,activeTab='mentioned', handleTabClick,setUserDat
         };
     }, [isCommentDropdownOpen]);
 
+    useEffect(() => {
+        const handleCommentDropdownOpen = () => {
+            // Disable scrolling when the comment dropdown is open
+            document.body.style.overflow = 'hidden';
+        };
+
+        const handleCommentDropdownClose = () => {
+            // Enable scrolling when the comment dropdown is closed
+            document.body.style.overflow = 'auto';
+        };
+
+        if (isCommentDropdownOpen) {
+            handleCommentDropdownOpen();
+        } else {
+            handleCommentDropdownClose();
+        }
+
+        return () => {
+            handleCommentDropdownClose();
+        };
+    }, [isCommentDropdownOpen]);
+
 
     return (
 
