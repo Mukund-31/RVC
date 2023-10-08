@@ -13,7 +13,7 @@ import profileIcon from './profileicon.png';
 import searchIcon from './searchicon.png';
 import notificationIcon from './notificationicon.png';
 import NotificationPage from "./NotificationPage";
-
+import SplashScreen from './SplashScreen';
 
 
 
@@ -23,6 +23,7 @@ const App = ({user}) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [activeTab, setActiveTab] = useState('confessions');
     const [mentionedConfessionId, setMentionedConfessionId] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
 
     const handleLogout = () => {
@@ -231,39 +232,47 @@ const App = ({user}) => {
         setMentionedConfessionId(mentionedConfessionId);
     };
 
+    // Simulate loading for 2 seconds (adjust as needed)
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1500);
+    }, []);
 
     return (
         <div>
-            <nav>
-                {isAuthenticated && windowWidth <= 768  && currentPage !== 'aboutPage' &&  (
-                    <div style={{ height:'70px',borderRadius:'11px', display: 'flex', justifyContent: 'space-around', fontSize: '33px', border: '0px solid #808080', marginBottom:'-1px', padding: '13px', position: 'fixed', bottom: '-10px', left: '0', right: '0', backgroundColor: '#ffffff', zIndex: '100', width: '100%', boxSizing: 'border-box', boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)', }}>
-                        <img src={homeIcon} onClick={switchToDashboard} style={{borderRadius:'50%', width: '31px', height: '31px' ,transform: currentPage === 'dashboard' ? 'scale(1.3)' : 'scale(1)', }} />
-                        <img src={searchIcon} onClick={switchToSearchPage} style={{borderRadius:'50%', width: '31px', height: '31px' ,transform: currentPage === 'searchPage' ? 'scale(1.3)' : 'scale(1)', }} />
-                        <img src={postIcon} onClick={switchToConfessionPage} style={{ borderRadius:'30%', width: '31px', height: '31px' ,transform: currentPage === 'confessionPage' ? 'scale(1.3)' : 'scale(1)', }} />
-                        <img src={notificationIcon} onClick={switchToNotificationPage} style={{ borderRadius:'30%', width: '31px', height: '31px' ,transform: currentPage === 'notificationPage' ? 'scale(1.3)' : 'scale(1)', }} />
-                        <img src={profileIcon} onClick={switchToProfilePage} style={{ borderRadius:'50%', width: '31px', height: '31px' ,transform: currentPage === 'profilePage' ? 'scale(1.3)' : 'scale(1)', }} />
-
-                    </div>
-                )}
-                {/* Other navigation elements */}
-            </nav>
-            {isAuthenticated ? (
-            <>
-            {currentPage === 'dashboard' && <Dashboard user={userData} setUserData={setUserData} switchToConfessionPage={switchToConfessionPage} />}
-            {currentPage === 'confessionPage' && <ConfessionPage switchToDashboard={switchToDashboard} users={usersData} />}
-            {currentPage === 'profilePage' &&<ProfilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} switchToAboutPage={switchToAboutPage}  mentionedConfessionId={mentionedConfessionId}  />}
-            {currentPage === 'searchPage' && (<SearchPage usersData={usersData} switchToUserprofilePage={switchToUserprofilePage} />)}
-                {currentPage === 'userprofilePage' &&<UserprofilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} switchToSearchPage={switchToSearchPage} />}
-                {currentPage === 'aboutPage' && <AboutPage />}
-                {currentPage === 'notificationPage' && <NotificationPage notifications={notifications} switchToProfilePage={switchToProfilePage} openMentionedConfession={openMentionedConfession}/>}
-            </>
+            {isLoading ? (
+                <SplashScreen />
             ) : (
-
-                // Render the login form when the user is not authenticated
-                <LoginPage setIsAuthenticated={setIsAuthenticated}  />
-
+                <div>
+                    <nav>
+                        {isAuthenticated && windowWidth <= 768 && currentPage !== 'aboutPage' && (
+                            <div style={{ height: '70px', borderRadius: '11px', display: 'flex', justifyContent: 'space-around', fontSize: '33px', border: '0px solid #808080', marginBottom: '-1px', padding: '13px', position: 'fixed', bottom: '-10px', left: '0', right: '0', backgroundColor: '#ffffff', zIndex: '100', width: '100%', boxSizing: 'border-box', boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)' }}>
+                                <img src={homeIcon} onClick={switchToDashboard} style={{ borderRadius: '50%', width: '31px', height: '31px', transform: currentPage === 'dashboard' ? 'scale(1.3)' : 'scale(1)' }} />
+                                <img src={searchIcon} onClick={switchToSearchPage} style={{ borderRadius: '50%', width: '31px', height: '31px', transform: currentPage === 'searchPage' ? 'scale(1.3)' : 'scale(1)' }} />
+                                <img src={postIcon} onClick={switchToConfessionPage} style={{ borderRadius: '30%', width: '31px', height: '31px', transform: currentPage === 'confessionPage' ? 'scale(1.3)' : 'scale(1)' }} />
+                                <img src={notificationIcon} onClick={switchToNotificationPage} style={{ borderRadius: '30%', width: '31px', height: '31px', transform: currentPage === 'notificationPage' ? 'scale(1.3)' : 'scale(1)' }} />
+                                <img src={profileIcon} onClick={switchToProfilePage} style={{ borderRadius: '50%', width: '31px', height: '31px', transform: currentPage === 'profilePage' ? 'scale(1.3)' : 'scale(1)' }} />
+                            </div>
+                        )}
+                        {/* Other navigation elements */}
+                    </nav>
+                    {isAuthenticated ? (
+                        <>
+                            {currentPage === 'dashboard' && <Dashboard user={userData} setUserData={setUserData} switchToConfessionPage={switchToConfessionPage} />}
+                            {currentPage === 'confessionPage' && <ConfessionPage switchToDashboard={switchToDashboard} users={usersData} />}
+                            {currentPage === 'profilePage' && <ProfilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} switchToAboutPage={switchToAboutPage} mentionedConfessionId={mentionedConfessionId} />}
+                            {currentPage === 'searchPage' && (<SearchPage usersData={usersData} switchToUserprofilePage={switchToUserprofilePage} />)}
+                            {currentPage === 'userprofilePage' && <UserprofilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} switchToSearchPage={switchToSearchPage} />}
+                            {currentPage === 'aboutPage' && <AboutPage />}
+                            {currentPage === 'notificationPage' && <NotificationPage notifications={notifications} switchToProfilePage={switchToProfilePage} openMentionedConfession={openMentionedConfession} />}
+                        </>
+                    ) : (
+                        // Render the login form when the user is not authenticated
+                        <LoginPage setIsAuthenticated={setIsAuthenticated} />
+                    )}
+                </div>
             )}
-
         </div>
     );
 };
