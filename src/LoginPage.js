@@ -7,6 +7,9 @@ function LoginPage({user, setIsAuthenticated }) {
     const [profilePic, setProfilePic] = useState();
     const [Branch, setBranch] = useState();
     const [Bio, setBio] = useState()
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
+    const [isOTPVerified, setIsOTPVerified] = useState(false);
+
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -178,6 +181,16 @@ function LoginPage({user, setIsAuthenticated }) {
 
     };
 
+    const toggleForgotPassword = () => {
+        setShowForgotPassword(!showForgotPassword); // Step 3
+    };
+    const closeDropdown = () => {
+        setShowForgotPassword(false);
+    };
+    const handleVerifyOTP = () => {
+        // Add your logic to verify the OTP here
+        setIsOTPVerified(true); // Set isOTPVerified to true upon successful OTP verification
+    };
     return (
         <div style={{backgroundColor:'#fff',display: 'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center' }} >
             <style>{gradientShadowAnimation}</style>
@@ -371,6 +384,134 @@ function LoginPage({user, setIsAuthenticated }) {
                 <button type="submit"
                         style={{  boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',color:'#fff', fontFamily: 'Helvetica', width: 'calc(100% - 25px)', height: '40px',background:'#000',border:'1px solid #ccc',fontSize:'18px',borderRadius: '50px',}}
                 >Log In</button>
+                <div>
+                    <a href="#" onClick={toggleForgotPassword} style={{ fontFamily: 'Helvetica', textDecoration: 'underline', cursor: 'pointer', color: '#000', position: 'relative', top: '18px' }}>
+                        Forgot Password?
+                    </a>
+                </div>
+
+                {showForgotPassword ? (
+                    <div style={{ overflowY: 'scroll', position: 'fixed', bottom: -1, left: 0, height: '99%', width: '100%', backgroundColor: 'white', zIndex: '100', borderTopRightRadius: '20px', borderTopLeftRadius: '20px', border: '0px solid #000', boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)' }}>
+                        <img src={CrossIcon} alt="Close" onClick={closeDropdown} style={{ width: '15px', height: '15px' ,float:'left',position:'absolute',top:'20px',left:'20px'}} />
+                        {isOTPVerified ? (
+                            <div>
+                                <p style={{ fontFamily: 'Helvetica', fontSize: '30px' }}><b>Create New Password</b></p>
+                                <p style={{ fontFamily: 'Helvetica' }}>Enter your new password:</p>
+                                <input
+                                    type="password"
+                                    placeholder="New Password"
+                                    // Add onChange and value attributes as needed
+                                    style={{
+                                        boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+                                        marginBottom: '15px',
+                                        paddingLeft: '18px',
+                                        fontFamily: 'Helvetica',
+                                        width: 'calc(90% - 25px)',
+                                        height: '40px',
+                                        background: 'rgba(255, 255, 255, 0.5)',
+                                        border: '1px solid #ccc',
+                                        fontSize: '18px',
+                                        zIndex: '1',
+                                        borderRadius: '11px',
+                                    }}
+                                />
+                                <p style={{ fontFamily: 'Helvetica' }}>Confirm your new password:</p>
+                                <input
+                                    type="password"
+                                    placeholder="Confirm Password"
+                                    // Add onChange and value attributes as needed
+                                    style={{
+                                        boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+                                        marginBottom: '15px',
+                                        paddingLeft: '18px',
+                                        fontFamily: 'Helvetica',
+                                        width: 'calc(90% - 25px)',
+                                        height: '40px',
+                                        background: 'rgba(255, 255, 255, 0.5)',
+                                        border: '1px solid #ccc',
+                                        fontSize: '18px',
+                                        zIndex: '1',
+                                        borderRadius: '11px',
+                                    }}
+                                />
+                                <div style={{ textAlign: 'center' }}>
+                                    <button style={{
+                                        boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+                                        color: '#fff',
+                                        fontFamily: 'Helvetica',
+                                        width: '150px',
+                                        height: '40px',
+                                        background: '#000',
+                                        border: '1px solid #ccc',
+                                        fontSize: '15px',
+                                        borderRadius: '11px',
+                                    }}>
+                                        Change
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <div>
+                                <p style={{ fontFamily: 'Helvetica', fontSize: '30px' }}><b>Forgot Password</b></p>
+                                <p style={{ fontFamily: 'Helvetica' }}>Enter your email address to reset your password:</p>
+                                <input
+                                    type="text"
+                                    placeholder="Email"
+                                    // Add onChange and value attributes as needed
+                                    style={{
+                                        boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+                                        marginBottom: '15px',
+                                        paddingLeft: '18px',
+                                        fontFamily: 'Helvetica',
+                                        width: 'calc(90% - 25px)',
+                                        height: '40px',
+                                        background: 'rgba(255, 255, 255, 0.5)',
+                                        border: '1px solid #ccc',
+                                        fontSize: '18px',
+                                        zIndex: '1',
+                                        borderRadius: '11px',
+                                    }}
+                                />
+                                <p style={{ fontFamily: 'Helvetica' }}>Enter the OTP sent to your email:</p>
+                                <input
+                                    type="text"
+                                    placeholder="OTP"
+                                    // Add onChange and value attributes as needed
+                                    style={{
+                                        boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+                                        marginBottom: '15px',
+                                        paddingLeft: '18px',
+                                        fontFamily: 'Helvetica',
+                                        width: 'calc(90% - 25px)',
+                                        height: '40px',
+                                        background: 'rgba(255, 255, 255, 0.5)',
+                                        border: '1px solid #ccc',
+                                        fontSize: '18px',
+                                        zIndex: '1',
+                                        borderRadius: '11px',
+                                    }}
+                                />
+                                <div style={{ textAlign: 'center' }}>
+                                    <button onClick={handleVerifyOTP}  style={{
+                                        boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+                                        color: '#fff',
+                                        fontFamily: 'Helvetica',
+                                        width: '150px',
+                                        height: '40px',
+                                        background: '#000',
+                                        border: '1px solid #ccc',
+                                        fontSize: '15px',
+                                        borderRadius: '11px',
+                                    }}>
+                                        Verify OTP
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                ) : null}
+
+
             </form>
             )}
             {error && <div style={{ color: 'red' }}>{error}</div>}

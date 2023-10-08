@@ -256,13 +256,11 @@ const App = ({user}) => {
                 {currentPage === 'userprofilePage' &&<UserprofilePage user={userData} activeTab={activeTab} handleTabClick={handleTabClick} setUserData={setUserData} switchToSearchPage={switchToSearchPage} />}
                 {currentPage === 'aboutPage' && <AboutPage />}
                 {currentPage === 'notificationPage' && <NotificationPage notifications={notifications} switchToProfilePage={switchToProfilePage} openMentionedConfession={openMentionedConfession}/>}
-
-
             </>
             ) : (
 
                 // Render the login form when the user is not authenticated
-                <LoginPage setIsAuthenticated={setIsAuthenticated} />
+                <LoginPage setIsAuthenticated={setIsAuthenticated}  />
 
             )}
 
