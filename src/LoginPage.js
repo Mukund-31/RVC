@@ -326,6 +326,7 @@ function LoginPage({user, setIsAuthenticated }) {
                     }}  >
                         Sign Up
                     </button>
+                    <p style={{fontFamily: 'Helvetica',fontSize:'14px',marginTop:'30px'}}>By signing up, you agree to our Terms of Use, Privacy Policy and Guidelines.</p>
                 </form>
 
 
