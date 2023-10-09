@@ -8,6 +8,17 @@ import likeicon from './likeicon.png';
 import dislikeicon from './dislikeicon.png';
 import commenticon from './commenticon.png';
 import postmenuIcon from "./postmenuicon.png";
+
+const hasCompletedProfile = () => {
+    // Check if a flag in local storage exists to indicate profile completion.
+    return localStorage.getItem('profileCompleted') === 'true';
+};
+
+const markProfileAsCompleted = () => {
+    // Set the flag in local storage to indicate profile completion.
+    localStorage.setItem('profileCompleted', 'true');
+};
+
 const Dashboard = ({ user,setUserData }) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showStickyNote, setShowStickyNote] = useState(true);
@@ -19,7 +30,10 @@ const Dashboard = ({ user,setUserData }) => {
     const [showpostDropdown, setShowpostDropdown] = useState(false);
     const dropdownRef = useRef(null);
     const commentDropdownRef = useRef(null);
-
+    const [profilePic, setProfilePic] = useState();
+    const [Branch, setBranch] = useState();
+    const [Bio, setBio] = useState()
+    const [showuserinfoForm, setShowuserinfoForm] = useState(!hasCompletedProfile());
     const formatTimeDifference = (confessionDate) => {
         const currentDate = new Date();
         const timeDifference = currentDate - new Date(confessionDate);
@@ -181,6 +195,29 @@ const Dashboard = ({ user,setUserData }) => {
         };
     }, [isCommentDropdownOpen]);
 
+
+    const handleProfilePicChange = (e) => {
+        const file = e.target.files[0];
+        // You can add code here to upload the selected profile picture to a server or display it on the page.
+        setProfilePic(file);
+    };
+
+    const handleNameChange = (e) => {
+        setBranch(e.target.value);
+    };
+
+    const handleBioChange = (e) => {
+        setBio(e.target.value);
+    };
+    const handleUserInfoSubmit = (e) => {
+        e.preventDefault();
+        // Add code to submit the updated profile information
+        // You can include an API call or any other logic to save the user's profile data.
+
+        // Mark the profile as completed when the user submits their information.
+        markProfileAsCompleted();
+        setShowuserinfoForm(false); // Hide the form after completion.
+    };
 
     return (
 
@@ -376,6 +413,88 @@ const Dashboard = ({ user,setUserData }) => {
                 // Render your bottom navigation when the dropdown is closed
                 <div style={{ position: 'fixed', bottom: '0', left: '0', right: '0', backgroundColor: '#333' }}>
                 </div>
+            )}
+            {showuserinfoForm && (
+                <form  onSubmit={handleUserInfoSubmit} style={{  overflowY:'scroll',position: 'fixed', bottom: -1, left: 0, height:'99%',width: '100%', backgroundColor: 'white',  zIndex: '100',borderTopRightRadius:'20px',borderTopLeftRadius:'20px', border:'0px solid #000',boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)' }}>
+
+                    <input
+                        type="file"
+                        id="fileInput"
+                        accept="image/*"
+                        onChange={handleProfilePicChange}
+                        style={{
+                            display: 'none',
+
+                        }}
+                    />
+                    <label htmlFor="fileInput">
+                        <img
+                            src={profilePic}
+                            style={{
+                                boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+                                marginBottom: '15px',
+                                fontFamily: 'Helvetica',
+                                width: '150px',
+                                height: '150px',
+                                background: 'rgba(255, 252, 255, 0.5)',
+                                border: '1px solid #ccc',
+                                fontSize: '10px',
+                                zIndex: '1',
+                                borderRadius: '50%',
+                                position:'absolute',
+                                left: '50%',
+                                top: '16%',
+                                transform: 'translate(-50%, -50%)'
+                            }}
+                        />
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Branch"
+                        value={Branch}
+                        onChange={handleNameChange}
+                        style={{boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+                            marginBottom: '15px',
+                            position:'relative',
+                            left: '50%',
+                            top: '38%',
+                            transform: 'translate(-50%, -50%)',
+                            paddingLeft: '18px',
+                            fontFamily: 'Helvetica',
+                            width: 'calc(90% - 25px)',
+                            height: '40px',
+                            background: 'rgba(255, 255, 255, 0.5)',
+                            border: '1px solid #ccc',
+                            fontSize: '18px',
+                            zIndex: '1',
+                            borderRadius: '11px',}}
+                    />
+                    <textarea
+                        placeholder="Bio"
+                        value={Bio}
+                        onChange={handleBioChange}
+                        style={{boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+                            marginBottom: '15px',
+                            paddingLeft: '18px',
+                            position:'relative',
+                            left: '50%',
+                            top: '45%',
+                            transform: 'translate(-50%, -50%)',
+                            fontFamily: 'Helvetica',
+                            width: 'calc(90% - 25px)',
+                            height: '100px',
+                            background: 'rgba(255, 255, 255, 0.5)',
+                            border: '1px solid #ccc',
+                            fontSize: '18px',
+                            zIndex: '1',
+                            borderRadius: '11px',}}
+                    />
+                    {/* Include the code to submit the updated profile information */}
+                    <button type="submit"
+                            style={{  position:'relative', left: '50%', top: '40%',
+                                transform: 'translate(-50%, -50%)',boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',color:'#fff', fontFamily: 'Helvetica', width: '100px', height: '40px',background:'#000',border:'1px solid #ccc',fontSize:'18px',borderRadius: '11px',}}
+                    >Submit</button>
+                </form>
             )}
         </div>
     );
