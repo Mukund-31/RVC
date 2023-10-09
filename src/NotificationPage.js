@@ -1,14 +1,6 @@
 import React from 'react';
 
 const NotificationPage = ({ notifications, openMentionedConfession }) => {
-    const getStickyNoteColor = (index) => {
-        const colors = ['#FC85BDB7', '#89E7FFB7', '#FF8989B7', '#FFF189B7', '#AA89FFB7', '#88FD88B7'];
-        return colors[index % colors.length];
-    };
-    const getStickyNoteColor1 = (index) => {
-        const colors = ['#ff76b3', '#76cfff', '#FF7676FF', '#ffef76', '#9b76ff', '#76fd76'];
-        return colors[index % colors.length];
-    };
     const formatTimeDifference = (notificationTime) => {
         const currentTime = new Date();
         const timeDifference = currentTime - new Date(notificationTime);
@@ -61,6 +53,24 @@ const NotificationPage = ({ notifications, openMentionedConfession }) => {
 
     const categorizedNotifications = categorizeNotifications(notifications);
 
+    const friendRequestNotifications = [
+        {
+            text: 'username has sent you a friend request',
+            userId: 'user123', // Replace with the actual user ID
+            time: new Date().toISOString(), // Add the timestamp
+        },
+        // Add more friend request notifications as needed
+    ];
+
+    // Define the handleAcceptFriendRequest and handleDeleteFriendRequest functions
+    const handleAcceptFriendRequest = (userId) => {
+        // Implement the logic to accept the friend request
+    };
+
+    const handleDeleteFriendRequest = (userId) => {
+        // Implement the logic to delete the friend request
+    };
+
     return (
         <div>
             <h2 style={{ fontFamily: 'Helvetica', fontSize: '28px' }}>Notifications</h2>
@@ -74,8 +84,6 @@ const NotificationPage = ({ notifications, openMentionedConfession }) => {
                             onClick={() => openMentionedConfession(notification.mentionedConfessionId)}
                             style={{
                                 borderRadius: '11px',
-                                borderBottomLeftRadius: '30px',
-                                background: getStickyNoteColor(index),
                                 position: 'relative',
                                 top: '0',
                                 zIndex: 'auto',
@@ -89,17 +97,18 @@ const NotificationPage = ({ notifications, openMentionedConfession }) => {
                                 overflowWrap: 'break-word',
                             }}
                         >
-                            <div style={{ zIndex: '1', fontFamily: 'Helvetica', position: 'relative' }}>                        <p
-                                style={{
-                                    position: 'absolute',
-                                    top: '-13px',
-                                    right: '4px',
-                                    color: '#000',
-                                    fontFamily: 'Helvetica',
-                                }}
-                            >
-                                {formatTimeDifference(notification.time)}
-                            </p>
+                            <div style={{ zIndex: '1', fontFamily: 'Helvetica', position: 'relative' }}>
+                                <p
+                                    style={{
+                                        position: 'absolute',
+                                        top: '-13px',
+                                        right: '4px',
+                                        color: '#000',
+                                        fontFamily: 'Helvetica',
+                                    }}
+                                >
+                                    {formatTimeDifference(notification.time)}
+                                </p>
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                     <p
                                         style={{
@@ -114,26 +123,6 @@ const NotificationPage = ({ notifications, openMentionedConfession }) => {
                                     </p>
                                 </div>
                             </div>
-
-                            <div style={{
-                                borderBottom: '3px solid #000',
-                                borderRight: '1px solid #000',
-                                borderTopRightRadius: '0px',
-                                borderTopLeftRadius: '30px',
-                                borderBottomRightRadius: '11px',
-                                borderBottomLeftRadius: '2px',
-                                position: 'absolute',
-                                bottom: '-0.4px',
-                                left: '30.5px',
-                                width: '30px',
-                                height: '31px',
-                                background: getStickyNoteColor1(index),
-                                clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%, 0% 75%)',
-                                zIndex: '0',
-                                transform: 'rotate(-83.6deg)',
-                                transformOrigin: 'bottom left',
-                            }}
-                            />
                         </div>
                     ))}
                 </div>
@@ -148,8 +137,6 @@ const NotificationPage = ({ notifications, openMentionedConfession }) => {
                             onClick={() => openMentionedConfession(notification.mentionedConfessionId)}
                             style={{
                                 borderRadius: '11px',
-                                borderBottomLeftRadius: '30px',
-                                background: getStickyNoteColor(index),
                                 position: 'relative',
                                 top: '0',
                                 zIndex: 'auto',
@@ -163,17 +150,18 @@ const NotificationPage = ({ notifications, openMentionedConfession }) => {
                                 overflowWrap: 'break-word',
                             }}
                         >
-                            <div style={{ zIndex: '1', fontFamily: 'Helvetica', position: 'relative' }}>                        <p
-                                style={{
-                                    position: 'absolute',
-                                    top: '-13px',
-                                    right: '4px',
-                                    color: '#000',
-                                    fontFamily: 'Helvetica',
-                                }}
-                            >
-                                {formatTimeDifference(notification.time)}
-                            </p>
+                            <div style={{ zIndex: '1', fontFamily: 'Helvetica', position: 'relative' }}>
+                                <p
+                                    style={{
+                                        position: 'absolute',
+                                        top: '-13px',
+                                        right: '4px',
+                                        color: '#000',
+                                        fontFamily: 'Helvetica',
+                                    }}
+                                >
+                                    {formatTimeDifference(notification.time)}
+                                </p>
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                     <p
                                         style={{
@@ -188,26 +176,6 @@ const NotificationPage = ({ notifications, openMentionedConfession }) => {
                                     </p>
                                 </div>
                             </div>
-
-                            <div style={{
-                                borderBottom: '3px solid #000',
-                                borderRight: '1px solid #000',
-                                borderTopRightRadius: '0px',
-                                borderTopLeftRadius: '30px',
-                                borderBottomRightRadius: '11px',
-                                borderBottomLeftRadius: '2px',
-                                position: 'absolute',
-                                bottom: '-0.4px',
-                                left: '30.5px',
-                                width: '30px',
-                                height: '31px',
-                                background: getStickyNoteColor1(index),
-                                clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%, 0% 75%)',
-                                zIndex: '0',
-                                transform: 'rotate(-83.6deg)',
-                                transformOrigin: 'bottom left',
-                            }}
-                            />
                         </div>
                     ))}
                 </div>
@@ -222,8 +190,6 @@ const NotificationPage = ({ notifications, openMentionedConfession }) => {
                             onClick={() => openMentionedConfession(notification.mentionedConfessionId)}
                             style={{
                                 borderRadius: '11px',
-                                borderBottomLeftRadius: '30px',
-                                background: getStickyNoteColor(index),
                                 position: 'relative',
                                 top: '0',
                                 zIndex: 'auto',
@@ -237,17 +203,18 @@ const NotificationPage = ({ notifications, openMentionedConfession }) => {
                                 overflowWrap: 'break-word',
                             }}
                         >
-                            <div style={{ zIndex: '1', fontFamily: 'Helvetica', position: 'relative' }}>                        <p
-                                style={{
-                                    position: 'absolute',
-                                    top: '-13px',
-                                    right: '4px',
-                                    color: '#000',
-                                    fontFamily: 'Helvetica',
-                                }}
-                            >
-                                {formatTimeDifference(notification.time)}
-                            </p>
+                            <div style={{ zIndex: '1', fontFamily: 'Helvetica', position: 'relative' }}>
+                                <p
+                                    style={{
+                                        position: 'absolute',
+                                        top: '-13px',
+                                        right: '4px',
+                                        color: '#000',
+                                        fontFamily: 'Helvetica',
+                                    }}
+                                >
+                                    {formatTimeDifference(notification.time)}
+                                </p>
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                     <p
                                         style={{
@@ -262,26 +229,6 @@ const NotificationPage = ({ notifications, openMentionedConfession }) => {
                                     </p>
                                 </div>
                             </div>
-
-                            <div style={{
-                                borderBottom: '3px solid #000',
-                                borderRight: '1px solid #000',
-                                borderTopRightRadius: '0px',
-                                borderTopLeftRadius: '30px',
-                                borderBottomRightRadius: '11px',
-                                borderBottomLeftRadius: '2px',
-                                position: 'absolute',
-                                bottom: '-0.4px',
-                                left: '30.5px',
-                                width: '30px',
-                                height: '31px',
-                                background: getStickyNoteColor1(index),
-                                clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%, 0% 75%)',
-                                zIndex: '0',
-                                transform: 'rotate(-83.6deg)',
-                                transformOrigin: 'bottom left',
-                            }}
-                            />
                         </div>
                     ))}
                 </div>
@@ -295,40 +242,40 @@ const NotificationPage = ({ notifications, openMentionedConfession }) => {
                             key={index}
                             onClick={() => openMentionedConfession(notification.mentionedConfessionId)}
                             style={{
-                                borderRadius: '11px',
-                                borderBottomLeftRadius: '30px',
-                                background: getStickyNoteColor(index),
+                                borderRadius: '50px',
+                                background: '#ffffff',
+                                border: '1px solid #e8e8e8',
+                                boxShadow: '6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff',
                                 position: 'relative',
                                 top: '0',
                                 zIndex: 'auto',
-                                border: '0px solid #000',
                                 padding: '10px',
                                 margin: '10px',
                                 maxWidth: '100%',
-                                boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
                                 whiteSpace: 'pre-line',
                                 overflow: 'hidden',
                                 overflowWrap: 'break-word',
                             }}
                         >
-                            <div style={{ zIndex: '1', fontFamily: 'Helvetica', position: 'relative' }}>                        <p
-                                style={{
-                                    position: 'absolute',
-                                    top: '-13px',
-                                    right: '4px',
-                                    color: '#000',
-                                    fontFamily: 'Helvetica',
-                                }}
-                            >
-                                {formatTimeDifference(notification.time)}
-                            </p>
+                            <div style={{ zIndex: '1', fontFamily: 'Helvetica', position: 'relative' }}>
+                                <p
+                                    style={{
+                                        position: 'absolute',
+                                        top: '-13px',
+                                        right: '4px',
+                                        color: '#000',
+                                        fontFamily: 'Helvetica',
+                                    }}
+                                >
+                                    {formatTimeDifference(notification.time)}
+                                </p>
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                     <p
                                         style={{
                                             fontFamily: 'Helvetica',
                                             position: 'relative',
                                             left: '27px',
-                                            top: '-10px',
+                                            top: '0px',
                                             maxWidth: '87%',
                                         }}
                                     >
@@ -336,26 +283,99 @@ const NotificationPage = ({ notifications, openMentionedConfession }) => {
                                     </p>
                                 </div>
                             </div>
+                        </div>
+                    ))}
+                </div>
+            )}
 
-                            <div style={{
-                                borderBottom: '3px solid #000',
-                                borderRight: '1px solid #000',
-                                borderTopRightRadius: '0px',
-                                borderTopLeftRadius: '30px',
-                                borderBottomRightRadius: '11px',
-                                borderBottomLeftRadius: '2px',
-                                position: 'absolute',
-                                bottom: '-0.4px',
-                                left: '30.5px',
-                                width: '30px',
-                                height: '31px',
-                                background: getStickyNoteColor1(index),
-                                clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%, 0% 75%)',
-                                zIndex: '0',
-                                transform: 'rotate(-83.6deg)',
-                                transformOrigin: 'bottom left',
+            {friendRequestNotifications.length > 0 && (
+                <div>
+                    {friendRequestNotifications.map((notification, index) => (
+                        <div
+                            key={index}
+                            // Handle the accept and delete actions when the buttons are clicked
+                            style={{
+                                borderRadius: '50px',
+                                background: '#ffffff',
+                                border: '1px solid #e8e8e8',
+                                boxShadow: '6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff',
+                                position: 'relative',
+                                top: '0',
+                                zIndex: 'auto',
+                                padding: '10px',
+                                margin: '10px',
+                                maxWidth: '100%',
+                                whiteSpace: 'pre-line',
+                                overflow: 'hidden',
+                                overflowWrap: 'break-word',
                             }}
-                            />
+                        >
+                            <div style={{ zIndex: '1', fontFamily: 'Helvetica', position: 'relative' }}>
+                                <p
+                                    style={{
+                                        position: 'absolute',
+                                        top: '-13px',
+                                        right: '4px',
+                                        color: '#000',
+                                        fontFamily: 'Helvetica',
+                                    }}
+                                >
+                                    {formatTimeDifference(notification.time)}
+                                </p>
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <p
+                                        style={{
+                                            fontFamily: 'Helvetica',
+                                            position: 'relative',
+                                            left: '27px',
+                                            top: '0px',
+                                            maxWidth: '80%',
+                                        }}
+                                    >
+                                        {notification.text}
+
+                                    <div style={{ display: 'flex', }}>
+                                        <button onClick={() => handleAcceptFriendRequest(notification.userId)}
+                                                style={{
+                                                    fontFamily: 'Helvetica',
+                                        position: 'relative',
+                                                    left: '0px',
+                                                    top: '20px',
+                                        maxWidth: '87%',
+                                        display: 'inline-block',
+                                        width: '70px',
+                                        height: '25px',
+                                        background: '#000',
+                                        border: '1px solid #ccc',
+                                        color: '#fff',
+                                        fontSize: '11px',
+                                        borderRadius: '11px',
+                                        marginRight: '5px',
+                                        cursor: 'pointer',
+                                        boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',}}>Accept</button>
+
+                                        <button onClick={() => handleDeleteFriendRequest(notification.userId)}
+                                                style={{
+                                            fontFamily: 'Helvetica',
+                                            position: 'relative',
+                                                    left: '0px',
+                                                    top: '20px',
+                                            maxWidth: '87%',
+                                            display: 'inline-block',
+                                            width: '70px',
+                                            height: '25px',
+                                            background: '#000',
+                                            border: '1px solid #ccc',
+                                            color: '#fff',
+                                            fontSize: '11px',
+                                            borderRadius: '11px',
+                                            marginRight: '5px',
+                                            cursor: 'pointer',
+                                            boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',}}>Delete</button>
+                                    </div>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     ))}
                 </div>
