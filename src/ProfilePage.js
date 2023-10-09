@@ -26,6 +26,8 @@ import postmenuIcon from "./postmenuicon.png";
         const [showpostDropdown, setShowpostDropdown] = useState(false);
         const dropdownRef = useRef(null);
         const commentDropdownRef = useRef(null);
+        const settingsdropdownRef = useRef(null);
+
 
         const formatTimeDifference = (confessionDate,mentionDate) => {
             const currentDate = new Date();
@@ -268,7 +270,24 @@ import postmenuIcon from "./postmenuicon.png";
             };
         }, [isCommentDropdownOpen]);
 
+        useEffect(() => {
+            const handleClickOutside = (event) => {
+                if (showDropdown && settingsdropdownRef.current && !settingsdropdownRef.current.contains(event.target)) {
+                    // Click occurred outside the dropdown
+                    setShowDropdown(false);
+                }
+            };
 
+            if (showDropdown) {
+                document.addEventListener('click', handleClickOutside);
+            } else {
+                document.removeEventListener('click', handleClickOutside);
+            }
+
+            return () => {
+                document.removeEventListener('click', handleClickOutside);
+            };
+        }, [showDropdown]);
 
 
 
@@ -285,7 +304,9 @@ import postmenuIcon from "./postmenuicon.png";
                 </div>
 
                 {showDropdown && (
-                    <div style={{overflowY:'scroll',position: 'fixed', bottom: -1, left: 0, height:'50%',width: '100%', backgroundColor: 'white',  zIndex: '100',borderTopRightRadius:'20px',borderTopLeftRadius:'20px', border:'0px solid #000',boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)'}}>
+                    <div
+                        ref={settingsdropdownRef}
+                        style={{overflowY:'scroll',position: 'fixed', bottom: -1, left: 0, height:'50%',width: '100%', backgroundColor: 'white',  zIndex: '100',borderTopRightRadius:'20px',borderTopLeftRadius:'20px', border:'0px solid #000',boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)'}}>
                         <ul style={{ listStyle: 'none', padding: '0' }}>
                             <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'black' }} onClick={handleLogout}>🎉Upcoming updates🎉</li>
                             <li style={{ padding: '15px', cursor: 'pointer',fontFamily: 'Helvetica', fontSize: '18px', color:'black' }} onClick={handleEditProfileClick}>Edit profile</li>
