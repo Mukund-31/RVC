@@ -5,6 +5,8 @@ import CrossIcon from "./cross.png";
 function LoginPage({user, setIsAuthenticated }) {
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [isOTPVerified, setIsOTPVerified] = useState(false);
+    const [showsignupOTPDropdown, setShowsignupOTPDropdown] = useState(false); // State to control OTP verification dropdown
+
 
     const [formData, setFormData] = useState({
         username: '',
@@ -102,7 +104,7 @@ function LoginPage({user, setIsAuthenticated }) {
             // Send a POST request to the authentication endpoint for signup...
             // Update the authentication status
             // Clear error message
-            setIsAuthenticated(true);
+            setShowsignupOTPDropdown(true);
             setError('');
 
         } catch (error) {
@@ -146,11 +148,15 @@ function LoginPage({user, setIsAuthenticated }) {
     };
     const closeDropdown = () => {
         setShowForgotPassword(false);
+        setShowsignupOTPDropdown(false);
+
     };
     const handleVerifyOTP = () => {
         // Add your logic to verify the OTP here
         setIsOTPVerified(true); // Set isOTPVerified to true upon successful OTP verification
+        setShowsignupOTPDropdown(false);
     };
+
     return (
         <div style={{backgroundColor:'#fff',display: 'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center' }} >
             <style>{gradientShadowAnimation}</style>
@@ -476,6 +482,52 @@ function LoginPage({user, setIsAuthenticated }) {
             </form>
             )}
             {error && <div style={{ color: 'red' }}>{error}</div>}
+
+            {showsignupOTPDropdown && (
+                <div style={{  overflowY: 'scroll', position: 'fixed', bottom: -1, left: 0, height: '99%', width: '100%', backgroundColor: 'white', zIndex: '100', borderTopRightRadius: '20px', borderTopLeftRadius: '20px', border: '0px solid #000', boxShadow: '0px 3px 9px rgba(0, 0, 0, 1)' }}>
+                    <img src={CrossIcon} alt="Close" onClick={closeDropdown} style={{ width: '15px', height: '15px' ,float:'left',position:'absolute',top:'20px',left:'20px'}} />
+                    <p style={{  fontSize: '30px',fontFamily: 'Helvetica', position:'absolute', left: '50%', top: '5%', transform: 'translate(-50%, -50%)'}}><b>verify email:</b></p>
+                    <p style={{ fontFamily: 'Helvetica', position:'absolute', left: '31%', top: '13%', transform: 'translate(-50%, -50%)'}}>Enter the OTP sent to your email:</p>
+
+                    <input
+                        type="text"
+                        placeholder="OTP"
+                        style={{
+                            boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+                            marginBottom: '15px',
+                            paddingLeft: '18px',
+                            fontFamily: 'Helvetica',
+                            width: 'calc(90% - 25px)',
+                            height: '40px',
+                            background: 'rgba(255, 255, 255, 0.5)',
+                            border: '1px solid #ccc',
+                            fontSize: '18px',
+                            zIndex: '1',
+                            borderRadius: '11px',
+                            position:'relative',
+                            left: '50%',
+                            top: '19%',
+                            transform: 'translate(-50%, -50%)'
+                        }}
+                        // Add onChange and value attributes as needed
+                    />
+                    <button onClick={handleVerifyOTP}  style={{
+                        boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.9)',
+                        color: '#fff',
+                        fontFamily: 'Helvetica',
+                        width: '150px',
+                        height: '40px',
+                        background: '#000',
+                        border: '1px solid #ccc',
+                        fontSize: '15px',
+                        borderRadius: '11px',
+                        position:'relative',
+                        left: '50%',
+                        top: '19%',
+                        transform: 'translate(-50%, -50%)'
+                    }}>Verify OTP</button>
+                </div>
+            )}
 
         </div>
 
